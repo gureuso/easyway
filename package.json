@@ -1,0 +1,30 @@
+{
+  "name": "easyway",
+  "version": "1.0.0",
+  "description": "걱정 없이 집을 나갈 수 있게 각종 정보를 알려주는 사이트입니다.",
+  "main": "next.config.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gureuso/easyway.git"
+  },
+  "author": "gureuso",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/gureuso/easyway/issues"
+  },
+  "homepage": "https://github.com/gureuso/easyway#readme",
+  "dependencies": {
+    "@types/next": "^8.0.5",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "@zeit/next-typescript": "^1.1.1",
+    "next": "^8.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
