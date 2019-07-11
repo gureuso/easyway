@@ -15,12 +15,12 @@ app.prepare()
     
   server.get('*', (req, res) => {
     return handle(req, res);
-  })
+  });
 
   server.listen(config.APP_PORT, config.APP_HOST, (err) => {
     if (err) throw err;
     console.log('> Ready on http://' + config.APP_HOST + ':' + config.APP_PORT);
-  })
+  });
 })
 .catch((ex) => {
   console.error(ex.stack);
