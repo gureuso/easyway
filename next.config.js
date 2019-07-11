@@ -1,4 +1,10 @@
-const withTypescript = require('@zeit/next-typescript')
-module.exports = withTypescript({
-  /* config options here */
+const withCSS = require('@zeit/next-css')
+
+module.exports = withCSS({
+  webpack(config) {
+    config.node = {
+      fs: 'empty'
+    }
+    return config
+  }
 })

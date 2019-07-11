@@ -1,5 +1,5 @@
-import React from 'react'
-import Head from 'next/head'
+import React from 'react';
+import Head from 'next/head';
 
 interface Props {
   title: string
@@ -12,8 +12,8 @@ class Header extends React.Component<Props> {
       <Head>
         <title>{title}</title>
       </Head>
-    )
+    );
   }
 }
 
-export default Header
+export default Header;

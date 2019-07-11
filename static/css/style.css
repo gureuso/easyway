@@ -1,0 +1,204 @@
+html {
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.bg-c-gray {
+  background-color: #f2f2f2;
+}
+
+.bg-c-yellow {
+  background-color: #f8ba00;
+}
+
+.content {
+  margin: auto;
+  width: 100%;
+}
+
+.inner-content {
+  margin: auto;
+  width: 90%;
+}
+
+.tab {
+  height: 200px;
+  width: 800px;
+}
+
+.mini-tab {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  border-radius: 20px;
+  height: 75px;
+}
+
+.mini-tab > div > #date {
+  display: none;
+  padding: 0;
+}
+
+.mini-tab > .inner-content {
+  width: 100%;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 50% 50%; 
+}
+
+#title {
+  height: 240px;
+  text-align: center;
+}
+
+#title > h1 {
+  padding-top: 70px;
+  font-size: 6rem;
+  margin: 0;
+}
+
+#title > p {
+  font-size: 1rem;
+}
+
+#logo {
+  margin-bottom: -6px;
+}
+
+#logo > img {
+  width: 100%;
+}
+
+#date {
+  padding-top: 30px;
+}
+
+#date > p {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#tab > ul {
+  list-style: none;
+  padding: 0;
+  padding-top: 20px;
+}
+
+#tab > ul > li {
+  display: inline-block;
+  padding-left: 20px;
+}
+
+#tab > ul > li > a {
+  font-size: 1.5rem;
+  color: #5E5E5E;
+}
+
+#tab > ul > li > div {
+  border-bottom: solid 4px;
+  width: 30px;
+  padding-top: 5px;
+  color: #5E5E5E;
+}
+
+#list {
+  margin-top: -50px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+#list > div > div {
+  height: 250px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+#list > div > div:nth-child(2n-1) {
+  border-right: 1px solid #f2f2f2;
+}
+
+#current_time {
+  text-align: center;
+  font-size: 3rem;
+  padding-top: 110px;
+}
+
+#current_weather {
+  padding-top: 50px;
+  text-align: center;
+}
+
+#current_weather_title > div:first-child {
+  text-align: right;
+}
+
+#current_weather_title > div:last-child {
+  margin-top: 25px;
+  text-align: left;
+}
+
+#current_weather_title > div:last-child > p {
+  font-size: 3rem;
+}
+
+#current_weather_main {
+}
+
+#current_weather_desc {
+}
+
+#current_bus {
+  margin-top: 85px;
+  text-align: center;
+}
+
+#current_bus_num {
+  font-size: 3rem;
+}
+
+#current_bus_waiting_time {
+  font-size: 1.5rem;
+}
+
+@media (min-width: 800px) {
+  .content {
+    width: 800px;
+  }
+
+  .mini-tab {
+    width: 720px;
+  }
+}
+
+@media (max-width: 799px) {
+  .tab {
+    width: 100%;
+  }
+
+  .mini-tab {
+    width: 90%;
+  }
+}
+
+@media (max-width: 600px) {
+  #list > div {
+    grid-template-columns: 100%;
+  }
+
+  #list > div > div:nth-child(2n-1) {
+    border-right: none;
+  }
+}
