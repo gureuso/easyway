@@ -50,7 +50,7 @@ class IndexPage extends React.Component{
 
   set_current_bus() {
     const url = 'http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey=' + config.BUS_API_KEY + '&stId=116000149&busRouteId=100100453&ord=35';
-    axios.get('http://localhost:5000/test/proxy?url=' + encodeURIComponent(url))
+    axios.get(config.PROXY_HOST + '/test/proxy?url=' + encodeURIComponent(url))
     .then(response => {
       xml.parseString(response.data.data.data, (err, result) => {
         const data = result.ServiceResult.msgBody[0];
