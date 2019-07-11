@@ -7,7 +7,7 @@ interface Props {
 
 class Header extends React.Component<Props> {
   render() {
-    const title = this.props.title
+    const title = this.props.title;
     return (
       <Head>
         <title>{title}</title>
