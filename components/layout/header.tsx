@@ -6,17 +6,11 @@ interface Props {
 }
 
 class Header extends React.Component<Props> {
-  title: string;
-
-  constructor(props: any, title: string) {
-    super(props);
-    this.title = title;
-  }
-
   render() {
+    const title = this.props.title
     return (
       <Head>
-        <title>{this.title}</title>
+        <title>{title}</title>
       </Head>
     );
   }
