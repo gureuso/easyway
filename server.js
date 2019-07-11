@@ -1,8 +1,8 @@
-const express = require('express')
-const next = require('next')
-const fs = require('fs')
+const express = require('express');
+const next = require('next');
+const fs = require('fs');
 
-let config = JSON.parse(fs.readFileSync('config.json'))
+const config = JSON.parse(fs.readFileSync('config.json'));
 
 const dev = config.APP_MODE !== 'production';
 console.log('> is_dev: ' + dev);
@@ -16,10 +16,10 @@ app.prepare()
   server.get('*', (req, res) => {
     return handle(req, res);
   })
-  
-  server.listen(3000, (err) => {
+
+  server.listen(config.APP_PORT, config.APP_HOST, (err) => {
     if (err) throw err;
-    console.log('> Ready on http://localhost:3000');
+    console.log('> Ready on http://' + config.APP_HOST + ':' + config.APP_PORT);
   })
 })
 .catch((ex) => {
