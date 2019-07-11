@@ -39,13 +39,13 @@ class Bus {
 
   private parse_data(data: {[key: string]: Array<any>}): object {
     let result: {[key: string]: string} = {};
-    for(const key in Object.keys(data)) {
+    for(const key of Object.keys(data)) {
       result[key] = data[key][0];
     }
     return result;
   }
 
-  get_correction_sec(): number {
+  private get_correction_sec(): number {
     return Math.round((parseInt(moment().format('x')) - parseInt(moment(this.api_call_time).format('x'))) / 1000);
   }
 

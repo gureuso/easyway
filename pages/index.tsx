@@ -39,7 +39,7 @@ class IndexPage extends React.Component{
   set_bus_waiting_time(sec: number) {
     const interval = setInterval(() => {
       const minute = (sec / 60) >> 0;
-      $("#current_bus_waiting_time").html(String(minute) + '분' + String(sec - (minute * 60)) + '초');
+      $('#current_bus_waiting_time').html(String(minute) + '분' + String(sec - (minute * 60)) + '초');
       sec -= 1;
       if(sec < 0) {
         clearInterval(interval);
@@ -57,7 +57,12 @@ class IndexPage extends React.Component{
         if(data) {
           for(const d of data.itemList) {
             const bus = new Bus(d);
-            this.set_bus_waiting_time(bus.get_waiting_sec());
+            const waiting_sec = bus.get_waiting_sec();
+            if(waiting_sec < 1) {
+              $('#current_bus_waiting_time').text(bus.message);
+            } else {
+              this.set_bus_waiting_time(bus.get_waiting_sec());
+            }
             break;
           }
         } else {
