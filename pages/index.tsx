@@ -10,7 +10,7 @@ import Bus from '../lib/bus';
 import Weather from '../lib/weather';
 import config from '../config.json';
 
-class IndexPage extends React.Component{
+class IndexPage extends React.Component {
   get_current_weather() {
     return axios.get('http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=' + config.WEATHER_API_KEY)
     .then(response => {
@@ -104,6 +104,7 @@ class IndexPage extends React.Component{
         <Logo/>
         <Tab/>
         <List/>
+        <Footer/>
       </div>
     );
   }
@@ -176,6 +177,16 @@ class Tab extends React.Component {
             </ul>
           </div>
         </div>
+      </div>
+    );
+  }
+}
+
+class Footer extends React.Component {
+  render() {
+    return (
+      <div className="content bg-c-yellow" id="footer">
+        <p><Link href="/cc"><a>CC</a></Link></p>
       </div>
     );
   }
