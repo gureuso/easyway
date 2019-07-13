@@ -1,4 +1,75 @@
 import moment from 'moment';
+import axios from 'axios';
+import xml from 'fast-xml-parser';
+
+import config from '../config.json';
+
+class BusUI {
+  private set_bus_waiting_time(target: JQuery<HTMLElement>, sec: number) {
+    const interval = setInterval(() => {
+      const minute = (sec / 60) >> 0;
+      target.text(String(minute) + '분' + String(sec - (minute * 60)) + '초');
+      sec -= 1;
+      if(sec < 0) {
+        clearInterval(interval);
+        this.set_current_bus(target);
+      }
+    }, 1000);
+  }
+
+  set_current_bus(target: JQuery<HTMLElement>) {
+    const api = new BusAPI();
+    const res = api.get_data_by_route();
+    res.then(data => {
+      if(data) {
+        const bus = new Bus(data);
+        const waiting_sec = bus.get_waiting_sec();
+        if(waiting_sec < 1) {
+          console.log(bus.message);
+          target.text(bus.message);
+        } else {
+          this.set_bus_waiting_time(target, waiting_sec);
+        }
+      } else {
+        target.text('data is null');
+      }  
+    });
+  }
+}
+
+class BusAPI {
+  API_KEY: string = config.BUS_API_KEY;
+  PROXY_HOST: string = config.PROXY_HOST;
+
+  /*private parse_data(data: {[key: string]: Array<any>}): object {
+    let result: {[key: string]: string} = {};
+    for(const key of Object.keys(data)) {
+      result[key] = data[key][0];
+    }
+    return result;
+  }*/
+
+  proxy(url: string) {
+    return axios.get(this.PROXY_HOST + '/test/proxy?url=' + encodeURIComponent(url))
+    .then(response => {
+      const data = xml.parse(response.data.data.data).ServiceResult.msgBody;
+      return data ? data.itemList : null;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  get_data_by_route(args: {st_id: number, bus_route_id: number, ord: number}={st_id: 116000149, bus_route_id: 100100453, ord: 35}) {
+    let url = 'http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?';
+    url += 'serviceKey=' + this.API_KEY;
+    url += '&stId=' + args.st_id;
+    url += '&busRouteId=' + args.bus_route_id;
+    url += '&ord=' + args.ord;
+
+    return this.proxy(url);
+  }
+}
 
 class BusMessage {
   message: string;
@@ -30,19 +101,11 @@ class Bus {
   message: string;
   api_call_time: string;
 
-  constructor(data: {[key: string]: Array<any>}) {
-    this.data = this.parse_data(data);
+  constructor(data: {[key: string]: any}) {
+    this.data = data;
     this.bus_num = parseInt(this.data.rtNm);
     this.message = this.data.arrmsg1;
     this.api_call_time = this.data.mkTm;
-  }
-
-  private parse_data(data: {[key: string]: Array<any>}): object {
-    let result: {[key: string]: string} = {};
-    for(const key of Object.keys(data)) {
-      result[key] = data[key][0];
-    }
-    return result;
   }
 
   private get_correction_sec(): number {
@@ -55,4 +118,4 @@ class Bus {
   }
 }
 
-export default Bus;
+export { BusUI };

@@ -121,6 +121,16 @@ a {
   color: #5E5E5E;
 }
 
+#tab > ul > li:last-child {
+  float: right;
+  right: 0px;
+}
+
+#tab > ul > li:last-child > img {
+  width: 30px;
+  cursor: pointer;
+}
+
 #list {
   margin-top: -50px;
   background-color: white;

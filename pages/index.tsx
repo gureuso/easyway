@@ -3,10 +3,9 @@ import Link from 'next/link';
 import moment from 'moment';
 import axios from 'axios';
 import $ from 'jquery';
-import xml from 'xml2js';
 
 import Header from '../components/layout/header';
-import Bus from '../lib/bus';
+import { BusUI } from '../lib/bus';
 import Weather from '../lib/weather';
 import config from '../config.json';
 
@@ -36,45 +35,6 @@ class IndexPage extends React.Component {
     }, 1000);
   }
 
-  set_bus_waiting_time(sec: number) {
-    const interval = setInterval(() => {
-      const minute = (sec / 60) >> 0;
-      $('#current_bus_waiting_time').html(String(minute) + '분' + String(sec - (minute * 60)) + '초');
-      sec -= 1;
-      if(sec < 0) {
-        clearInterval(interval);
-        this.set_current_bus();
-      }
-    }, 1000);
-  }
-
-  set_current_bus() {
-    const url = 'http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey=' + config.BUS_API_KEY + '&stId=116000149&busRouteId=100100453&ord=35';
-    axios.get(config.PROXY_HOST + '/test/proxy?url=' + encodeURIComponent(url))
-    .then(response => {
-      xml.parseString(response.data.data.data, (err, result) => {
-        const data = result.ServiceResult.msgBody[0];
-        if(data) {
-          for(const d of data.itemList) {
-            const bus = new Bus(d);
-            const waiting_sec = bus.get_waiting_sec();
-            if(waiting_sec < 1) {
-              $('#current_bus_waiting_time').text(bus.message);
-            } else {
-              this.set_bus_waiting_time(bus.get_waiting_sec());
-            }
-            break;
-          }
-        } else {
-          $('#current_bus_waiting_time').text('data is null');
-        }
-      });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-
   change_tab_mode() {
     const height = $('#title').height()! + $('#logo').height()! + ($('.tab').height()!);
     $(window).scroll(function () {
@@ -92,7 +52,6 @@ class IndexPage extends React.Component {
   componentDidMount() {
     this.set_current_time();
     this.set_current_weather();
-    this.set_current_bus();
     this.change_tab_mode();
   }
 
@@ -131,6 +90,41 @@ class Logo extends React.Component {
   }
 }
 
+class Tab extends React.Component {
+  componentDidMount() {
+    this.set_current_bus();
+  }
+
+  set_current_bus() {
+    const target = $('#current_bus_waiting_time');
+    const bus_ui = new BusUI();
+    bus_ui.set_current_bus(target);
+  }
+
+  render() {
+    return (
+      <div className="content bg-c-yellow tab">
+        <div className="inner-content">
+          <div id="date">
+            <p>{moment().format('YYYY/MM/DD')}</p>
+          </div>
+          <div id="tab">
+            <ul>
+              <li>
+                <Link href="/"><a>Main</a></Link>
+                <div></div>
+              </li>
+              <li>
+                <img src="/static/img/refresh_btn_01.png" onClick={this.set_current_bus}/>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
 class List extends React.Component {
   render() {
     return (
@@ -153,28 +147,6 @@ class List extends React.Component {
                 <p id="current_bus_waiting_time"></p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-class Tab extends React.Component {
-  render() {
-    return (
-      <div className="content bg-c-yellow tab">
-        <div className="inner-content">
-          <div id="date">
-            <p>{moment().format('YYYY/MM/DD')}</p>
-          </div>
-          <div id="tab">
-            <ul>
-              <li>
-                <Link href="/"><a>Main</a></Link>
-                <div></div>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
