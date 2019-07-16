@@ -2,7 +2,7 @@ import React from 'react';
 import App, { Container } from 'next/app';
 
 import 'normalize.css';
-import '../static/css/style.css';
+import '../static/css/style.less';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }: { Component: any, ctx: any }) {
