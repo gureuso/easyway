@@ -1,58 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 import moment from 'moment';
-import axios from 'axios';
 import $ from 'jquery';
 
 import Header from '../components/layout/header';
 import { BusUI } from '../lib/bus';
-import Weather from '../lib/weather';
-import config from '../config.json';
+import { WeatherAPI } from '../lib/weather';
+import { Interval } from '../lib/interval';
 
 class IndexPage extends React.Component {
-  get_current_weather() {
-    return axios.get('http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=' + config.WEATHER_API_KEY)
-    .then(response => {
-      const weather = new Weather(response.data);
-      return weather.get_data();
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-
-  set_current_weather() {
-    this.get_current_weather().then((data: any) => {
-      $('#current_weather_title').html('<div><img src="' + data.icon + '"/></div>' + '<div><p>' + data.temp + '</p></div>');
-      $('#current_weather_main').text(data.main);
-      $('#current_weather_desc').text(data.desc);
-    });
-  }
-
-  set_current_time() {
-    setInterval(() => {
-      $('#current_time').html(moment().format('HH:mm:ss'));
-    }, 1000);
-  }
-
-  change_tab_mode() {
-    const height = $('#title').height()! + $('#logo').height()! + ($('.tab').height()!);
-    $(window).scroll(function () {
-      const window_height = $(document).scrollTop();
-      if(window_height! > height) {
-        $('.tab').removeClass('tab').addClass('mini-tab');
-        $('#list').css({'margin-top': '325px'});
-      } else {
-        $('.mini-tab').removeClass('mini-tab').addClass('tab');
-        $('#list').css({'margin-top': '-50px'});
-      }
-    });
-  }
-
   componentDidMount() {
-    this.set_current_time();
-    this.set_current_weather();
-    this.change_tab_mode();
+    ComponentDidMount.setAll();
+    ComponentDidMount.changeTabMode();
   }
 
   render() {
@@ -66,6 +25,64 @@ class IndexPage extends React.Component {
         <Footer/>
       </div>
     );
+  }
+}
+
+class ComponentDidMount {
+  static setCurrentWeather() {
+    const weatherAPI = new WeatherAPI();
+    weatherAPI.getCurrentWeather().then((data: any) => {
+      $('#current_weather_title').html('<div><img src="' + data.icon + '"/></div>' + '<div><p>' + data.temp + '</p></div>');
+      $('#current_weather_main').text(data.main);
+      $('#current_weather_desc').text(data.desc);
+    });
+  }
+
+  static setCurrentTime() {
+    const interval = new Interval();
+    interval.set(() => {
+      $('#current_time').html(moment().format('HH:mm:ss'));
+    }, 1000);
+  }
+
+  static setCurrentBus() {
+    const target = $('#current_bus_waiting_time');
+    const busUI = new BusUI();
+    busUI.setCurrentBus(target);
+  }
+
+  static setAll() {
+    ComponentDidMount.setCurrentTime();
+    ComponentDidMount.setCurrentWeather();
+    ComponentDidMount.setCurrentBus();
+  }
+
+  static spin() {
+    const target = $("#tab > ul > li:last-child > img");
+    target.removeClass('spin');
+    setTimeout(() => {
+      target.addClass('spin');
+    }, 1);
+  }
+
+  static refresh() {
+    Interval.clearAll();
+    ComponentDidMount.spin();
+    ComponentDidMount.setAll();
+  }
+
+  static changeTabMode() {
+    const height = $('#title').height()! + $('#logo').height()! + ($('.tab').height()!);
+    $(window).scroll(function () {
+      const windowHeight = $(document).scrollTop();
+      if(windowHeight! > height) {
+        $('.tab').removeClass('tab').addClass('mini-tab');
+        $('#list').css({'margin-top': '325px'});
+      } else {
+        $('.mini-tab').removeClass('mini-tab').addClass('tab');
+        $('#list').css({'margin-top': '-50px'});
+      }
+    });
   }
 }
 
@@ -91,16 +108,6 @@ class Logo extends React.Component {
 }
 
 class Tab extends React.Component {
-  componentDidMount() {
-    this.set_current_bus();
-  }
-
-  set_current_bus() {
-    const target = $('#current_bus_waiting_time');
-    const bus_ui = new BusUI();
-    bus_ui.set_current_bus(target);
-  }
-
   render() {
     return (
       <div className="content bg-c-yellow tab">
@@ -115,7 +122,7 @@ class Tab extends React.Component {
                 <div></div>
               </li>
               <li>
-                <img src="/static/img/refresh_btn_01.png" onClick={this.set_current_bus}/>
+                <img src="/static/img/refresh_btn_01.svg" onClick={ComponentDidMount.refresh}/>
               </li>
             </ul>
           </div>

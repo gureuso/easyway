@@ -17,6 +17,19 @@ a {
   color: #5E5E5E;
 }
 
+.spin {
+  animation: spinner 0.5s linear 1;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
 .bg-c-gray {
   background-color: #f2f2f2;
 }
@@ -123,12 +136,14 @@ a {
 
 #tab > ul > li:last-child {
   float: right;
-  right: 0px;
+  padding-top: 5px;
+  padding-right: 20px;
 }
 
 #tab > ul > li:last-child > img {
   width: 30px;
   cursor: pointer;
+  color: #5E5E5E;
 }
 
 #list {
