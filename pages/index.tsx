@@ -4,9 +4,11 @@ import moment from 'moment';
 import $ from 'jquery';
 
 import Header from '../components/layout/header';
+import Modal from '../components/modal';
 import { BusUI } from '../lib/bus';
 import { WeatherAPI } from '../lib/weather';
-import { Interval } from '../lib/interval';
+import { SubwayUI } from '../lib/subway';
+import { Interval } from '../lib/common';
 
 class IndexPage extends React.Component {
   componentDidMount() {
@@ -18,11 +20,16 @@ class IndexPage extends React.Component {
     return (
       <div>
         <Header title="EASYWAY"/>
+
         <Title/>
         <Logo/>
         <Tab/>
         <List/>
         <Footer/>
+
+        <Modal>
+          <HourlyWeather/>
+        </Modal>
       </div>
     );
   }
@@ -46,15 +53,20 @@ class ComponentDidMount {
   }
 
   static setCurrentBus() {
-    const target = $('#current_bus_waiting_time');
-    const busUI = new BusUI();
-    busUI.setCurrentBus(target);
+    const target = $('#current_bus_message');
+    BusUI.setCurrentBus(target);
+  }
+
+  static setCurrentSubway() {
+    const target = $('#current_subway_message');
+    SubwayUI.setCurrentSubway(target);
   }
 
   static setAll() {
     ComponentDidMount.setCurrentTime();
     ComponentDidMount.setCurrentWeather();
     ComponentDidMount.setCurrentBus();
+    ComponentDidMount.setCurrentSubway();
   }
 
   static spin() {
@@ -146,12 +158,21 @@ class List extends React.Component {
                 <div id="current_weather_title" className="list"></div>
                 <p id="current_weather_main"></p>
                 <p id="current_weather_desc"></p>
+                <div id="current_weather_more">
+                  <img src="/static/img/plus_btn_01.svg" onClick={Modal.active}/>
+                </div>
               </div>
             </div>
             <div>
               <div id="current_bus">
-                <p id="current_bus_num">6613</p>
-                <p id="current_bus_waiting_time"></p>
+                <p id="current_bus_title">6613</p>
+                <p id="current_bus_message"></p>
+              </div>
+            </div>
+            <div>
+              <div id="current_subway">
+                <p id="current_subway_title">대림역</p>
+                <p id="current_subway_message"></p>
               </div>
             </div>
           </div>
@@ -166,6 +187,26 @@ class Footer extends React.Component {
     return (
       <div className="content bg-c-yellow" id="footer">
         <p><Link href="/cc"><a>CC</a></Link></p>
+      </div>
+    );
+  }
+}
+
+class HourlyWeather extends React.Component {
+  componentDidMount() {
+    this.setHourlyWeather();
+  }
+
+  setHourlyWeather() {
+    const weatherAPI = new WeatherAPI();
+    weatherAPI.getHourlyWeather().then((list: any) => {
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>TT</h1>
       </div>
     );
   }

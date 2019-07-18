@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import axios from 'axios'
+import axios from 'axios';
 
 import config from '../config.json';
 
@@ -17,7 +17,7 @@ class WeatherAPI {
     });
   }
 
-  getForecastWeather() {
+  getHourlyWeather() {
     return axios.get('http://api.openweathermap.org/data/2.5/forecast?q=Seoul&appid=' + this.API_KEY)
     .then(response => {
       let list: Array<Object> = [];

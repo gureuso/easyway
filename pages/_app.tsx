@@ -22,7 +22,7 @@ class MyApp extends App {
       <Container>
         <Component {...pageProps} />
       </Container>
-    )
+    );
   }
 }
 

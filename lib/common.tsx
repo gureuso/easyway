@@ -1,3 +1,11 @@
+import moment from 'moment';
+
+class Moment {
+  getCorrectionSec(time: string): number {
+    return Math.round((parseInt(moment().format('x')) - parseInt(moment(time).format('x'))) / 1000);
+  }
+}
+
 class Interval {
   static ids: Array<any> = [];
 
@@ -18,4 +26,4 @@ class Interval {
   }
 }
 
-export { Interval };
+export { Interval, Moment };
