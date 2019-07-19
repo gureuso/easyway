@@ -39,7 +39,9 @@ class ComponentDidMount {
   static setCurrentWeather() {
     const weatherAPI = new WeatherAPI();
     weatherAPI.getCurrentWeather().then((data: any) => {
-      $('#current_weather_title').html('<div><img src="' + data.icon + '"/></div>' + '<div><p>' + data.temp + '</p></div>');
+      let titleHtml = `<div><img src="${data.icon}"></div>`;
+      titleHtml += `<div><p>${data.temp}°</p></div>`;
+      $('#current_weather_title').html(titleHtml);
       $('#current_weather_main').text(data.main);
       $('#current_weather_desc').text(data.desc);
     });
@@ -62,15 +64,31 @@ class ComponentDidMount {
     SubwayUI.setCurrentSubway(target);
   }
 
+  static setHourlyWeather() {
+    const weatherAPI = new WeatherAPI();
+    weatherAPI.getHourlyWeather().then((list: any) => {
+      for(const data of list.slice(0, 8)) {
+        let html = '<div>';
+        html += `${moment(data.dt).format('HH:mm')}<br/>`;
+        html += `<img src="${data.icon}"/><br/>`;
+        html += `${data.temp}°<br/>`;
+        html += `${data.main}<br/>`;
+        html += '</div>';
+        $('#hourly_weather').append(html);
+      }
+    });
+  }
+
   static setAll() {
     ComponentDidMount.setCurrentTime();
     ComponentDidMount.setCurrentWeather();
     ComponentDidMount.setCurrentBus();
     ComponentDidMount.setCurrentSubway();
+    ComponentDidMount.setHourlyWeather();
   }
 
-  static spin() {
-    const target = $("#tab > ul > li:last-child > img");
+  static runSpin() {
+    const target = $('#tab > ul > li:last-child > img');
     target.removeClass('spin');
     setTimeout(() => {
       target.addClass('spin');
@@ -79,7 +97,7 @@ class ComponentDidMount {
 
   static refresh() {
     Interval.clearAll();
-    ComponentDidMount.spin();
+    ComponentDidMount.runSpin();
     ComponentDidMount.setAll();
   }
 
@@ -193,21 +211,9 @@ class Footer extends React.Component {
 }
 
 class HourlyWeather extends React.Component {
-  componentDidMount() {
-    this.setHourlyWeather();
-  }
-
-  setHourlyWeather() {
-    const weatherAPI = new WeatherAPI();
-    weatherAPI.getHourlyWeather().then((list: any) => {
-    });
-  }
-
   render() {
     return (
-      <div>
-        <h1>TT</h1>
-      </div>
+      <div id="hourly_weather"></div>
     );
   }
 }

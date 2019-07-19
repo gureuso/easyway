@@ -1,5 +1,15 @@
 import moment from 'moment';
 
+import config from '../config.json';
+
+class Temperature {
+  KELVIN_NUM = config.KELVIN_NUM
+
+  kelvinToCelsius(temp: number) {
+    return parseFloat((temp - this.KELVIN_NUM).toFixed(1));
+  }
+}
+
 class Moment {
   getCorrectionSec(time: string): number {
     return Math.round((parseInt(moment().format('x')) - parseInt(moment(time).format('x'))) / 1000);
@@ -26,4 +36,4 @@ class Interval {
   }
 }
 
-export { Interval, Moment };
+export { Interval, Moment, Temperature };

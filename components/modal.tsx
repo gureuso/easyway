@@ -3,24 +3,28 @@ import $ from 'jquery';
 
 class Modal extends React.Component {
   static active() {
-    $('.modal-bg, .modal').show();
+    $('.modal, .modal-dialog').show();
   }
 
   static deactive() {
-    $('.modal-bg, .modal').hide();
+    $('.modal, .modal-dialog').hide();
   }
 
   componentDidMount() {
-    $('.modal-bg, .modal-close').click(() => {
+    $('.modal-close').click((event) => {
       {Modal.deactive()};
+    });
+    $('.modal').click((event) => {
+      if(event.target.className == 'modal') {
+        {Modal.deactive()};
+      }
     });
   }
 
   render() {
     return (
-      <div>
-        <div className="modal-bg"></div>
-        <div className="modal">
+      <div className="modal">
+        <div className="modal-dialog">
           <div className="modal-header">
             <div className="modal-close">
               <img src="/static/img/close_btn_01.svg"/>

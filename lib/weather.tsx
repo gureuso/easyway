@@ -2,6 +2,7 @@ import $ from 'jquery';
 import axios from 'axios';
 
 import config from '../config.json';
+import { Temperature } from './common'
 
 class WeatherAPI {
   API_KEY: string = config.WEATHER_API_KEY;
@@ -56,8 +57,12 @@ class Weather {
     return data;
   }
 
-  private getTemp(): number {
-    return parseFloat((this.main.temp - config.KELVIN_NUM).toFixed(1));
+  private getTemp(): Object {
+    const t = new Temperature();
+    const temp = t.kelvinToCelsius(this.main.temp);
+    const minTemp = t.kelvinToCelsius(this.main.temp_min);
+    const maxTemp = t.kelvinToCelsius(this.main.temp_max);
+    return {temp, minTemp, maxTemp};
   }
 
   private getDateTime(): number {
@@ -68,7 +73,7 @@ class Weather {
     const weather = this.getWeather();
     const temp = this.getTemp();
     const dt = this.getDateTime();
-    return $.extend(weather, {temp, dt});
+    return $.extend(weather, temp, {dt});
   }
 }
 
