@@ -67,14 +67,16 @@ class ComponentDidMount {
   static setHourlyWeather() {
     const weatherAPI = new WeatherAPI();
     weatherAPI.getHourlyWeather().then((list: any) => {
-      for(const data of list.slice(0, 8)) {
+      const target = $('#hourly_weather');
+      target.html('');
+      for(const data of list.slice(0, 10)) {
         let html = '<div>';
         html += `${moment(data.dt).format('HH:mm')}<br/>`;
         html += `<img src="${data.icon}"/><br/>`;
         html += `${data.temp}°<br/>`;
         html += `${data.main}<br/>`;
         html += '</div>';
-        $('#hourly_weather').append(html);
+        target.append(html);
       }
     });
   }
