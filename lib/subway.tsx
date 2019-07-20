@@ -40,11 +40,12 @@ class SubwayAPI {
     })
     .catch(error => {
       console.log(error);
+      return [];
     });
   }
 
   getDaerimWithLine2() {
-    return this.getCurrentSubway().then((list) => {
+    return this.getCurrentSubway().then(list => {
       let result = undefined;
       for(const data of list) {
         if(data.updnLine = '외선') {

@@ -11,10 +11,10 @@ class Modal extends React.Component {
   }
 
   componentDidMount() {
-    $('.modal-close').click((event) => {
+    $('.modal-close').click(() => {
       {Modal.deactive()};
     });
-    $('.modal').click((event) => {
+    $('.modal').click(event => {
       if(event.target.className == 'modal') {
         {Modal.deactive()};
       }

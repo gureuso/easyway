@@ -11,99 +11,11 @@ import { SubwayUI } from '../lib/subway';
 import { Interval } from '../lib/common';
 
 class IndexPage extends React.Component {
-  componentDidMount() {
-    ComponentDidMount.setAll();
-    ComponentDidMount.changeTabMode();
-  }
+  state = {
+    refresh: false
+  };
 
-  render() {
-    return (
-      <div>
-        <Header title="EASYWAY"/>
-
-        <Title/>
-        <Logo/>
-        <Tab/>
-        <List/>
-        <Footer/>
-
-        <Modal>
-          <HourlyWeather/>
-        </Modal>
-      </div>
-    );
-  }
-}
-
-class ComponentDidMount {
-  static setCurrentWeather() {
-    const weatherAPI = new WeatherAPI();
-    weatherAPI.getCurrentWeather().then((data: any) => {
-      let titleHtml = `<div><img src="${data.icon}"></div>`;
-      titleHtml += `<div><p>${data.temp}°</p></div>`;
-      $('#current_weather_title').html(titleHtml);
-      $('#current_weather_main').text(data.main);
-      $('#current_weather_desc').text(data.desc);
-    });
-  }
-
-  static setCurrentTime() {
-    const interval = new Interval();
-    interval.set(() => {
-      $('#current_time').html(moment().format('HH:mm:ss'));
-    }, 1000);
-  }
-
-  static setCurrentBus() {
-    const target = $('#current_bus_message');
-    BusUI.setCurrentBus(target);
-  }
-
-  static setCurrentSubway() {
-    const target = $('#current_subway_message');
-    SubwayUI.setCurrentSubway(target);
-  }
-
-  static setHourlyWeather() {
-    const weatherAPI = new WeatherAPI();
-    weatherAPI.getHourlyWeather().then((list: any) => {
-      const target = $('#hourly_weather');
-      target.html('');
-      for(const data of list.slice(0, 10)) {
-        let html = '<div>';
-        html += `${moment(data.dt).format('HH:mm')}<br/>`;
-        html += `<img src="${data.icon}"/><br/>`;
-        html += `${data.temp}°<br/>`;
-        html += `${data.main}<br/>`;
-        html += '</div>';
-        target.append(html);
-      }
-    });
-  }
-
-  static setAll() {
-    ComponentDidMount.setCurrentTime();
-    ComponentDidMount.setCurrentWeather();
-    ComponentDidMount.setCurrentBus();
-    ComponentDidMount.setCurrentSubway();
-    ComponentDidMount.setHourlyWeather();
-  }
-
-  static runSpin() {
-    const target = $('#tab > ul > li:last-child > img');
-    target.removeClass('spin');
-    setTimeout(() => {
-      target.addClass('spin');
-    }, 1);
-  }
-
-  static refresh() {
-    Interval.clearAll();
-    ComponentDidMount.runSpin();
-    ComponentDidMount.setAll();
-  }
-
-  static changeTabMode() {
+  changeTabMode() {
     const height = $('#title').height()! + $('#logo').height()! + ($('.tab').height()!);
     $(window).scroll(function () {
       const windowHeight = $(document).scrollTop();
@@ -115,6 +27,32 @@ class ComponentDidMount {
         $('#list').css({'margin-top': '-50px'});
       }
     });
+  }
+
+  refresh() {
+    this.setState({refresh: true});
+  }
+
+  componentDidMount() {
+    this.changeTabMode();
+  }
+
+  render() {
+    return (
+      <div>
+        <Header title="EASYWAY"/>
+
+        <Title/>
+        <Logo/>
+        <Tab handler={this.refresh.bind(this)}/>
+        <List refresh={this.state.refresh}/>
+        <Footer/>
+
+        <Modal>
+          <HourlyWeather refresh={this.state.refresh}/>
+        </Modal>
+      </div>
+    );
   }
 }
 
@@ -139,7 +77,25 @@ class Logo extends React.Component {
   }
 }
 
-class Tab extends React.Component {
+interface TabProps {
+  handler: Function
+}
+
+class Tab extends React.Component<TabProps> {
+  runSpin() {
+    const target = $('#tab > ul > li:last-child > img');
+    target.removeClass('spin');
+    setTimeout(() => {
+      target.addClass('spin');
+    }, 1);
+  }
+
+  refresh() {
+    Interval.clearAll();
+    this.runSpin();
+    this.props.handler();
+  }
+
   render() {
     return (
       <div className="content bg-c-yellow tab">
@@ -154,7 +110,7 @@ class Tab extends React.Component {
                 <div></div>
               </li>
               <li>
-                <img src="/static/img/refresh_btn_01.svg" onClick={ComponentDidMount.refresh}/>
+                <img src="/static/img/refresh_btn_01.svg" onClick={this.refresh.bind(this)}/>
               </li>
             </ul>
           </div>
@@ -164,24 +120,79 @@ class Tab extends React.Component {
   }
 }
 
-class List extends React.Component {
+interface ListProps {
+  refresh: boolean
+}
+
+class List extends React.Component<ListProps> {
+  state = {
+    currentTime: '',
+    currentWeather: ''
+  };
+
+  setCurrentTime() {
+    const interval = new Interval();
+    interval.set(() => {
+      this.setState({currentTime: moment().format('HH:mm:ss')});
+    }, 1000);
+  }
+
+  setCurrentWeather() {
+    const weatherAPI = new WeatherAPI();
+    weatherAPI.getCurrentWeather().then((data: any) => {
+      this.setState({currentWeather: (
+        <div id="current_weather">
+          <div id="current_weather_title" className="list">
+            <div><img src={data.icon}/></div>
+            <div><p>{data.temp}°</p></div>
+          </div>
+          <p id="current_weather_main">{data.main}</p>
+          <p id="current_weather_desc">{data.desc}</p>
+          <div id="current_weather_more">
+            <img src="/static/img/plus_btn_01.svg" onClick={Modal.active}/>
+          </div>
+        </div>
+      )});
+    });
+  }
+
+  setCurrentBus() {
+    const target = $('#current_bus_message');
+    BusUI.setCurrentBus(target);
+  }
+
+  setCurrentSubway() {
+    const target = $('#current_subway_message');
+    SubwayUI.setCurrentSubway(target);
+  }
+
+  setAll() {
+    this.setCurrentTime();
+    this.setCurrentWeather();
+    this.setCurrentBus();
+    this.setCurrentSubway();
+  }
+
+  componentDidMount() {
+    this.setAll();
+  }
+
+  componentWillReceiveProps(nextProps: any) {
+    if(nextProps.refresh == true) {
+      this.setAll();
+    }
+  }
+
   render() {
     return (
       <div className="content">
         <div className="inner-content" id="list">
           <div className="list">
             <div>
-              <p id="current_time"></p>
+              <p id="current_time">{this.state.currentTime}</p>
             </div>
             <div>
-              <div id="current_weather">
-                <div id="current_weather_title" className="list"></div>
-                <p id="current_weather_main"></p>
-                <p id="current_weather_desc"></p>
-                <div id="current_weather_more">
-                  <img src="/static/img/plus_btn_01.svg" onClick={Modal.active}/>
-                </div>
-              </div>
+              {this.state.currentWeather}
             </div>
             <div>
               <div id="current_bus">
@@ -212,10 +223,48 @@ class Footer extends React.Component {
   }
 }
 
-class HourlyWeather extends React.Component {
+interface HourlyWeatherProps {
+  refresh: boolean
+}
+
+class HourlyWeather extends React.Component<HourlyWeatherProps> {
+  state = {
+    hourlyWeather: []
+  };
+
+  setHourlyWeather() {
+    const weatherAPI = new WeatherAPI();
+    weatherAPI.getHourlyWeather().then((list: any) => {
+      let html = [];
+      for(const data of list.slice(0, 10)) {
+        html.push(
+          <div key={data.dt}>
+            {moment(data.dt).format('HH:mm')}<br/>
+            <img src={data.icon}/><br/>
+            {data.temp}°<br/>
+            {data.main}<br/>
+          </div>
+        );
+      }
+      this.setState({hourlyWeather: html});
+    });
+  }
+
+  componentDidMount() {
+    this.setHourlyWeather();
+  }
+
+  componentWillReceiveProps(nextProps: any) {
+    if(nextProps.refresh == true) {
+      this.setHourlyWeather();
+    }
+  }
+
   render() {
     return (
-      <div id="hourly_weather"></div>
+      <div id="hourly_weather">
+        {this.state.hourlyWeather}
+      </div>
     );
   }
 }

@@ -15,6 +15,7 @@ class WeatherAPI {
     })
     .catch(error => {
       console.log(error);
+      return undefined;
     });
   }
 
@@ -30,6 +31,7 @@ class WeatherAPI {
     })
     .catch(error => {
       console.log(error);
+      return [];
     });
   }
 }

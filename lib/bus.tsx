@@ -25,7 +25,7 @@ class BusUI {
         }
       } else {
         target.text('data is null');
-      }  
+      }
     });
   }
 }
@@ -33,14 +33,6 @@ class BusUI {
 class BusAPI {
   API_KEY: string = config.BUS_API_KEY;
   PROXY_HOST: string = config.PROXY_HOST;
-
-  /*private parseData(data: {[key: string]: Array<any>}): object {
-    let result: {[key: string]: string} = {};
-    for(const key of Object.keys(data)) {
-      result[key] = data[key][0];
-    }
-    return result;
-  }*/
 
   proxy(url: string) {
     return axios.get(this.PROXY_HOST + '/test/proxy?url=' + encodeURIComponent(url))
@@ -50,6 +42,7 @@ class BusAPI {
     })
     .catch(error => {
       console.log(error);
+      return undefined;
     });
   }
 
