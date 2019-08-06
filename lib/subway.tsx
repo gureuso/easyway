@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { Moment } from './common';
 import { UI } from './ui';
-import config from '../config.json';
+import config from 'config.json';
 
 class SubwayUI {
   static setWaitingTime(target: JQuery<HTMLElement>, sec: number) {

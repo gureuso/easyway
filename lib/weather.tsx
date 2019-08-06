@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import axios from 'axios';
 
-import config from '../config.json';
+import config from 'config.json';
 import { Temperature } from './common'
 
 class WeatherAPI {

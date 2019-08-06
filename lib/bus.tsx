@@ -1,7 +1,7 @@
 import axios from 'axios';
 import xml from 'fast-xml-parser';
 
-import config from '../config.json';
+import config from 'config.json';
 import { Moment } from './common';
 import { UI } from './ui';
 
