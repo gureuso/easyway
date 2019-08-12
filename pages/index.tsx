@@ -17,7 +17,7 @@ class IndexPage extends React.Component {
 
   changeTabMode() {
     const height = $('#title').height()! + $('#logo').height()! + ($('.tab').height()!);
-    $(window).scroll(function () {
+    $(window).scroll(() => {
       const windowHeight = $(document).scrollTop();
       if(windowHeight! > height) {
         $('.tab').removeClass('tab').addClass('mini-tab');
