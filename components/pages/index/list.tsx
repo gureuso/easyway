@@ -67,7 +67,7 @@ class List extends React.Component<ListProps> {
     this.setCurrentSubway();
   }
 
-  componentDidMount() { 
+  componentDidMount() {
     this._ismounted = true;
     this.setAll();
   }

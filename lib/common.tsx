@@ -6,7 +6,7 @@ class Temperature {
   KELVIN_NUM = config.KELVIN_NUM
 
   kelvinToCelsius(temp: number) {
-    return parseFloat((temp - this.KELVIN_NUM).toFixed(1));
+    return parseFloat((temp - this.KELVIN_NUM).toFixed(0));
   }
 }
 
