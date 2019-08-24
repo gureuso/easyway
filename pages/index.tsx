@@ -16,7 +16,7 @@ class IndexPage extends React.Component {
   };
 
   changeTabMode() {
-    const height = $('#title').height()! + $('#logo').height()! + ($('.tab').height()!);
+    const height = $('#title').height()! + $('#logo').height()! + $('.tab').height()!;
     $(window).scroll(() => {
       const windowHeight = $(document).scrollTop();
       if(windowHeight! > height) {
