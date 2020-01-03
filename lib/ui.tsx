@@ -1,6 +1,6 @@
 import { Interval } from './common';
 
-class UI {
+class TimeUI {
   setWaitingTime(target: JQuery<HTMLElement>, sec: number, callback: Function) {
     const interval = new Interval();
     const id = interval.set(() => {
@@ -17,4 +17,4 @@ class UI {
   }
 }
 
-export { UI };
+export { TimeUI };

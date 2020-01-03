@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 import { Moment } from './common';
-import { UI } from './ui';
+import { TimeUI } from './ui';
 import config from 'config.json';
 
 class SubwayUI {
   static setWaitingTime(target: JQuery<HTMLElement>, sec: number) {
-    const ui = new UI();
+    const ui = new TimeUI();
     ui.setWaitingTime(target, sec, SubwayUI.setCurrentSubway);
   }
 

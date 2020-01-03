@@ -3,11 +3,11 @@ import xml from 'fast-xml-parser';
 
 import config from 'config.json';
 import { Moment } from './common';
-import { UI } from './ui';
+import { TimeUI } from './ui';
 
 class BusUI {
   static setWaitingTime(target: JQuery<HTMLElement>, sec: number) {
-    const ui = new UI();
+    const ui = new TimeUI();
     ui.setWaitingTime(target, sec, BusUI.setCurrentBus);
   }
 
