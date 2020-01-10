@@ -45,14 +45,18 @@ class SNSLogin extends React.Component {
     return (
       <div className="list">
         <div>
-          <a href={this.login('google')}>
-            <img src={GoogleLoginBtn} className="sns sns-btn"/>
-          </a>
+          <div className="sns">
+            <a href={this.login('google')}>
+              <img src={GoogleLoginBtn} className="sns-btn"/>
+            </a>
+          </div>
         </div>
         <div>
-          <a href={this.login('kakao')}>
-            <img src={KakaoLoginBtn} className="sns sns-btn"/>
-          </a>
+          <div className="sns">
+            <a href={this.login('kakao')}>
+              <img src={KakaoLoginBtn} className="sns-btn"/>
+            </a>
+          </div>
         </div>
       </div>
     );
