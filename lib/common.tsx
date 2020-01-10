@@ -1,6 +1,32 @@
 import moment from 'moment';
 
-import config from '../config.json';
+import config from 'config.json';
+
+class Random {
+  static all(len: number) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    return this.random(characters, len);
+  }
+
+  static num(len: number) {
+    const characters = '0123456789';
+    return this.random(characters, len);
+  }
+
+  static str(len: number) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    return this.random(characters, len);
+  }
+
+  private static random(characters: string, len: number) {
+    let result = '';  
+    const charactersLength = characters.length;
+    for (let i = 0; i < len; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+}
 
 class Temperature {
   KELVIN_NUM = config.KELVIN_NUM
@@ -36,4 +62,4 @@ class Interval {
   }
 }
 
-export { Interval, Moment, Temperature };
+export { Interval, Moment, Temperature, Random };

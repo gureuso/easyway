@@ -1,5 +1,8 @@
-import React from 'react'
+import React from 'react';
+import { inject, observer } from 'mobx-react';
 
+@inject('store')
+@observer
 class CCPage extends React.Component {
   render() {
     return (

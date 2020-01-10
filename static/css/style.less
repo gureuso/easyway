@@ -64,7 +64,10 @@ a {
 
 .tab {
   height: 200px;
-  width: @sizes[tablet];
+}
+
+.text-only-tab {
+  height: 120px;
 }
 
 .mini-tab {
@@ -129,6 +132,17 @@ a {
   clear: both;
 }
 
+#signin {
+  & > li {
+    list-style: none;
+    padding: 0;
+  }
+  & > li:last-child {
+    padding: 10px;
+    float: right;
+  }
+}
+
 #title {
   height: 240px;
   text-align: center;
@@ -136,8 +150,7 @@ a {
 
 #title > p {
   font-weight: 300;
-  padding-right: 210px;
-  padding-top: 70px;
+  padding: 60px 210px 0 0;
   font-size: 1.3rem;
 }
 
@@ -294,6 +307,15 @@ a {
     padding: 20px 0;
     border: 1px solid @colors[light-gray];
   }
+}
+
+.sns {
+  padding: 100px 0 0 60px;
+}
+
+.sns-btn {
+  width: 222px;
+  height: 49px;
 }
 
 @media (min-width: @sizes[tablet]) {

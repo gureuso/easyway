@@ -1,16 +1,25 @@
 import React from 'react';
 import $ from 'jquery';
+import { inject, observer } from 'mobx-react';
 
 import Header from 'components/layout/header';
 import Modal from 'components/modal';
-import Title from 'components/pages/index/title';
-import Logo from 'components/pages/index/logo';
-import Tab from 'components/pages/index/tab';
-import List from 'components/pages/index/list';
-import Footer from 'components/pages/index/footer';
-import HourlyWeather from 'components/pages/index/hourlyWeather';
+import Title from 'components/pages/title';
+import Logo from 'components/pages/logo';
+import Tab from 'components/pages/tab';
+import List from 'components/pages/list';
+import Footer from 'components/pages/footer';
+import HourlyWeather from 'components/pages/hourlyWeather';
 
-class IndexPage extends React.Component {
+import { IStore } from 'store/store';
+
+interface IndexPageProps {
+  store: IStore
+}
+
+@inject('store')
+@observer
+class IndexPage extends React.Component<IndexPageProps> {
   state = {
     refresh: false
   };
@@ -21,7 +30,7 @@ class IndexPage extends React.Component {
       const windowHeight = $(document).scrollTop();
       if(windowHeight! > height) {
         $('.tab').removeClass('tab').addClass('mini-tab');
-        $('#list').css({'margin-top': '325px'});
+        $('#list').css({'margin-top': '290px'});
       } else {
         $('.mini-tab').removeClass('mini-tab').addClass('tab');
         $('#list').css({'margin-top': '-50px'});
@@ -40,9 +49,9 @@ class IndexPage extends React.Component {
   render() {
     return (
       <div>
-        <Header title="EASYWAY"/>
+        <Header title='EASYWAY'/>
 
-        <Title/>
+        <Title isSignin={this.props.store.isSignin} token={this.props.store.token}/>
         <Logo/>
         <Tab handler={this.refresh.bind(this)}/>
         <List refresh={this.state.refresh}/>

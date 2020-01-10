@@ -22,7 +22,8 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules"

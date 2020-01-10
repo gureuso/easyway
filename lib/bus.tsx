@@ -32,10 +32,10 @@ class BusUI {
 
 class BusAPI {
   API_KEY: string = config.BUS_API_KEY;
-  PROXY_HOST: string = config.PROXY_HOST;
+  PROXY_HOST: string = config.API_HOST;
 
   proxy(url: string) {
-    return axios.get(this.PROXY_HOST + '/test/proxy?url=' + encodeURIComponent(url))
+    return axios.get(this.PROXY_HOST + '/apis/proxy?url=' + encodeURIComponent(url))
     .then(response => {
       const data = xml.parse(response.data.data.data).ServiceResult.msgBody;
       return data ? data.itemList : undefined;
