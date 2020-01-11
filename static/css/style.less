@@ -146,95 +146,103 @@ a {
 #title {
   height: 240px;
   text-align: center;
-}
 
-#title > p {
-  font-weight: 300;
-  padding: 60px 210px 0 0;
-  font-size: 1.3rem;
-}
+  & > p {
+    font-weight: 300;
+    padding: 60px 210px 0 0;
+    font-size: 1.3rem;
+  }
 
-#title > h1 {
-  text-align: center;
-  font-size: 5.5rem;
-  margin: 0;
+  & > h1 {
+    text-align: center;
+    font-size: 5.5rem;
+    margin: 0;
+    & > a {
+      color: @colors[black];
+    }
+  }
 }
 
 #logo {
   margin-bottom: -6px;
-}
-
-#logo > img {
-  width: 100%;
+  & > img {
+    width: 100%;
+  }
 }
 
 #date {
   padding-top: 30px;
+  & > p {
+    color: @colors[white];
+    font-size: 2rem;
+    font-weight: bold;
+  }
 }
 
-#date > p {
-  color: @colors[white];
-  font-size: 2rem;
-  font-weight: bold;
+#tab {
+  & > ul {
+    list-style: none;
+    padding: 0;
+    padding-top: 20px;
+  }
 }
 
-#tab > ul {
-  list-style: none;
-  padding: 0;
-  padding-top: 20px;
-}
-
-#tab > ul > li {
-  display: inline-block;
-  padding-left: 20px;
-}
-
-#tab > ul > li > a {
-  font-size: 1.5rem;
-}
-
-#tab > ul > li > div {
+#tab-title-bar {
   border-bottom: solid 4px;
   width: 30px;
   padding-top: 5px;
   color: @colors[gray];
 }
 
-#tab > ul > li:last-child {
-  float: right;
-  padding-top: 5px;
-  padding-right: 20px;
+#tab-title {
+  font-size: 1.5rem;
 }
 
-#tab > ul > li:last-child > img {
-  width: 30px;
-  cursor: pointer;
-  color: @colors[gray];
+#tab {
+  & > ul {
+    & > li {
+      display: inline-block;
+      & > img {
+        width: 30px;
+        cursor: pointer;
+      }
+      & > img:first-child {
+        padding-right: 10px;
+      }
+    }
+    & > li:first-child {
+      padding-left: 20px;
+    }
+    & > li:last-child {
+      float: right;
+      padding-top: 5px;
+      padding-right: 20px;
+    }
+  }
 }
 
 #list {
   margin-top: -50px;
   background-color: @colors[white];
   border-radius: 20px;
-}
-
-#list > div > div {
-  height: 250px;
-  border-bottom: 1px solid @colors[light-gray];
-}
-
-#list > div > div:nth-child(2n-1) {
-  border-right: 1px solid @colors[light-gray];
+  & > div {
+    & > div {
+      height: 250px;
+      border-bottom: 1px solid @colors[light-gray];
+    }
+    & > div:nth-child(2n-1) {
+      border-right: 1px solid @colors[light-gray];
+    }
+  }
 }
 
 #footer {
   margin-top: 20px;
   padding: 20px 0;
-}
-
-#footer > p {
-  text-align: right;
-  padding: 0 5%;
+  & > p {
+    text-align: right;
+    padding: 0 5%;
+  }
 }
 
 #current_time {
@@ -248,52 +256,51 @@ a {
   text-align: center;
 }
 
-#current_weather_title > div:first-child {
-  text-align: right;
-}
-
-#current_weather_title > div:last-child {
-  margin-top: 25px;
-  text-align: left;
-}
-
-#current_weather_title > div:last-child > p {
-  font-size: 3rem;
+#current_weather_title {
+  & > div:first-child {
+    text-align: right;
+  }
+  & > div:last-child {
+    margin-top: 25px;
+    text-align: left;
+    & > p {
+      font-size: 3rem;
+    }
+  }
 }
 
 #current_weather_more {
   text-align: right;
   padding: 35px 5px 0 0;
+  & > img {
+    cursor: pointer;
+    width: 20px;
+  }
 }
 
-#current_weather_more > img {
-  cursor: pointer;
-  width: 20px;
-}
-
-#current_bus {
+.current_bus {
   margin-top: 85px;
   text-align: center;
 }
 
-#current_bus_title {
+.current_bus_title {
   font-size: 3rem;
 }
 
-#current_bus_message {
+.current_bus_message {
   font-size: 1.5rem;
 }
 
-#current_subway {
-  #current_bus();
+.current_subway {
+  .current_bus();
 }
 
-#current_subway_title {
+.current_subway_title {
   font-size: 2.7rem;
 }
 
-#current_subway_message {
-  #current_bus_message();
+.current_subway_message {
+  .current_bus_message();
 }
 
 #hourly_weather {
@@ -356,12 +363,13 @@ a {
     }
   }
 
-  #list > div {
-    grid-template-columns: 100%;
-  }
-
-  #list > div > div:nth-child(2n-1) {
-    border-right: none;
+  #list {
+    & > div {
+      grid-template-columns: 100%;
+      & > div:nth-child(2n-1) {
+        border-right: none;
+      }
+    }
   }
 }
 

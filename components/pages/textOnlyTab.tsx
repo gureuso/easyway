@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Link from 'next/link';
-
 interface TabProps {
   title: string
 }
@@ -14,8 +12,8 @@ class TextOnlyTab extends React.Component<TabProps> {
           <div id="tab">
             <ul>
               <li>
-                <Link href="/"><a>{this.props.title}</a></Link>
-                <div></div>
+                <a id="tab-title">{this.props.title}</a>
+                <div id="tab-title-bar"></div>
               </li>
               <li></li>
             </ul>

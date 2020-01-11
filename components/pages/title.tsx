@@ -32,7 +32,7 @@ class Title extends React.Component<TitleProps> {
         {this.renderSignin()}
         <div className="content bg-c-gray" id="title">
           <p>걱정없이 집을 나가자!</p>
-          <h1>EASYWAY</h1>
+          <h1><Link href='/'><a>EASYWAY</a></Link></h1>
         </div>
       </div>
     );

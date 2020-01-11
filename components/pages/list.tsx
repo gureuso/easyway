@@ -93,18 +93,18 @@ class List extends React.Component<ListProps> {
             <div>
               {this.state.currentWeather}
             </div>
-            <div>
-              <div id="current_bus">
-                <p id="current_bus_title">6613</p>
-                <p id="current_bus_message"></p>
+            {/* <div>
+              <div className="current_bus">
+                <p className="current_bus_title">6613</p>
+                <p className="current_bus_message"></p>
               </div>
             </div>
             <div>
-              <div id="current_subway">
-                <p id="current_subway_title">대림역</p>
-                <p id="current_subway_message"></p>
+              <div className="current_subway">
+                <p className="current_subway_title">대림역</p>
+                <p className="current_subway_message"></p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

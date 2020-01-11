@@ -7,8 +7,8 @@ import { Temperature } from './common'
 class WeatherAPI {
   API_KEY: string = config.WEATHER_API_KEY;
 
-  getCurrentWeather() {
-    return axios.get('http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=' + this.API_KEY)
+  getCurrentWeather(location: string='Seoul') {
+    return axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${this.API_KEY}`)
     .then(response => {
       const weather = new Weather(response.data);
       return weather.getData();

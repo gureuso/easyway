@@ -12,7 +12,7 @@ interface TabProps {
 
 class Tab extends React.Component<TabProps> {
   runSpin() {
-    const target = $('#tab > ul > li:last-child > img');
+    const target = $('#tab > ul > li:last-child > img:last-child');
     target.removeClass('spin');
     setTimeout(() => {
       target.addClass('spin');
@@ -35,10 +35,11 @@ class Tab extends React.Component<TabProps> {
           <div id="tab">
             <ul>
               <li>
-                <Link href="/"><a>Main</a></Link>
-                <div></div>
+                <Link href='/'><a id="tab-title">Main</a></Link>
+                <div id="tab-title-bar"></div>
               </li>
               <li>
+                <Link href='/setting'><img src="/static/img/setting_btn_01.svg"/></Link>
                 <img src="/static/img/refresh_btn_01.svg" onClick={this.refresh.bind(this)}/>
               </li>
             </ul>
