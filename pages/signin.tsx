@@ -37,7 +37,7 @@ class SigninPage extends React.Component<SigninPageProps> {
       <div>
         <Header title='EASYWAY'/>
 
-        <Title isSignin={this.props.store.isSignin} token={this.props.store.token}/>
+        <Title isSignin={this.props.store.isSignin}/>
         <Logo/>
         <TextOnlyTab title='회원가입'/>
         <BlankList>

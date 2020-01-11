@@ -51,7 +51,7 @@ class IndexPage extends React.Component<IndexPageProps> {
       <div>
         <Header title='EASYWAY'/>
 
-        <Title isSignin={this.props.store.isSignin} token={this.props.store.token}/>
+        <Title isSignin={this.props.store.isSignin}/>
         <Logo/>
         <Tab handler={this.refresh.bind(this)}/>
         <List refresh={this.state.refresh}/>

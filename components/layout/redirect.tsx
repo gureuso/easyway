@@ -7,7 +7,9 @@ interface RedirectProps {
 
 class Redirect extends React.Component<RedirectProps> {
   componentDidMount() {
-    Router.push(this.props.to)
+    setTimeout(() => {
+      Router.push(this.props.to);
+    }, 500);
   }
 
   render() {

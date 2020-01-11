@@ -12,7 +12,9 @@ interface SignoutPageProps {
 @observer
 class SignoutPage extends React.Component<SignoutPageProps> {
   componentDidMount() {
-    Router.push('/');
+    setTimeout(() => {
+      Router.push('/');
+    }, 500);
   }
 
   componentWillMount() {

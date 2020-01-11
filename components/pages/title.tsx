@@ -2,8 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 interface TitleProps {
-  isSignin: boolean,
-  token: string
+  isSignin: boolean
 }
 
 class Title extends React.Component<TitleProps> {
