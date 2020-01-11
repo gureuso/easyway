@@ -23,7 +23,7 @@ class SignoutPage extends React.Component<SignoutPageProps> {
   
   render() {
     return (
-      <div></div>
+      <div>redirect...</div>
     );
   }
 }
