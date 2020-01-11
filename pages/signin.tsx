@@ -13,22 +13,13 @@ import Redirect from 'components/layout/redirect';
 import { IStore } from 'store/store';
 
 interface SigninPageProps {
-  store: IStore,
-  accessToken: string
+  store: IStore
 }
 
 @inject('store')
 @observer
 class SigninPage extends React.Component<SigninPageProps> {
-  static getInitialProps(ctx: any) {
-    return {accessToken: ctx.query.token}
-  }
-
   render() {
-    const token = this.props.accessToken;
-    if(token) {
-      {this.props.store.signin(token)}
-    }
     if(this.props.store.isSignin) {
       return <Redirect to='/'/>
     }

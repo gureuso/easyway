@@ -14,12 +14,17 @@ import HourlyWeather from 'components/pages/hourlyWeather';
 import { IStore } from 'store/store';
 
 interface IndexPageProps {
-  store: IStore
+  store: IStore,
+  accessToken: string
 }
 
 @inject('store')
 @observer
 class IndexPage extends React.Component<IndexPageProps> {
+  static getInitialProps(ctx: any) {
+    return {accessToken: ctx.query.token}
+  }
+
   state = {
     refresh: false
   };
@@ -47,6 +52,11 @@ class IndexPage extends React.Component<IndexPageProps> {
   }
 
   render() {
+    const token = this.props.accessToken;
+    if(token) {
+      {this.props.store.signin(token)}
+    }
+
     return (
       <div>
         <Header title='EASYWAY'/>
