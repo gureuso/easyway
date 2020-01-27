@@ -46,6 +46,22 @@ class BusAPI {
     });
   }
 
+  getBusRoute(arsId: string) {
+    let url = 'http://ws.bus.go.kr/api/rest/stationinfo/getStationByUid?'
+    url += 'serviceKey=' + this.API_KEY;
+    url += '&arsId=' + arsId;
+
+    return this.proxy(url);
+  }
+
+  getBusStation(name: string) {
+    let url = 'http://ws.bus.go.kr/api/rest/stationinfo/getStationByName?'
+    url += 'serviceKey=' + this.API_KEY;
+    url += '&stSrch=' + name;
+
+    return this.proxy(url);
+  }
+
   getDataByRoute(stId=116000149, busRouteId=100100453, ord=35) {
     let url = 'http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?';
     url += 'serviceKey=' + this.API_KEY;
@@ -105,4 +121,4 @@ class Bus {
   }
 }
 
-export { BusUI };
+export { BusUI, BusAPI };

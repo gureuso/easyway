@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import Router from 'next/router';
+import Redirect from 'components/layout/redirect';
 
 import { IStore } from 'store/store';
 
@@ -11,19 +11,13 @@ interface SignoutPageProps {
 @inject('store')
 @observer
 class SignoutPage extends React.Component<SignoutPageProps> {
-  componentDidMount() {
-    setTimeout(() => {
-      Router.push('/');
-    }, 500);
-  }
-
   componentWillMount() {
     this.props.store.signout();
   }
   
   render() {
     return (
-      <div>redirect...</div>
+      <Redirect store={this.props.store} to='/'/>
     );
   }
 }

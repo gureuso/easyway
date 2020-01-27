@@ -6,6 +6,7 @@ import Title from 'components/pages/title';
 import Logo from 'components/pages/logo';
 import TextOnlyTab from 'components/pages/textOnlyTab';
 import BlankList from 'components/pages/blankList';
+import Settings from 'components/pages/settings';
 import Footer from 'components/pages/footer';
 import Redirect from 'components/layout/redirect';
 
@@ -17,10 +18,10 @@ interface SettingPageProps {
 
 @inject('store')
 @observer
-class SettingPage extends React.Component<SettingPageProps> {
+class SettingsPage extends React.Component<SettingPageProps> {
   render() {
     if(!this.props.store.isSignin) {
-      return <Redirect to='/'/>
+      return <Redirect store={this.props.store} to='/signin'/>
     }
 
     return (
@@ -31,6 +32,7 @@ class SettingPage extends React.Component<SettingPageProps> {
         <Logo/>
         <TextOnlyTab title='설정'/>
         <BlankList>
+          <Settings/>
         </BlankList>
 
         <Footer/>
@@ -39,4 +41,4 @@ class SettingPage extends React.Component<SettingPageProps> {
   }
 }
 
-export default SettingPage;
+export default SettingsPage;

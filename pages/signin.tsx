@@ -21,7 +21,7 @@ interface SigninPageProps {
 class SigninPage extends React.Component<SigninPageProps> {
   render() {
     if(this.props.store.isSignin) {
-      return <Redirect to='/'/>
+      return <Redirect store={this.props.store} to='/'/>
     }
 
     return (
@@ -30,7 +30,7 @@ class SigninPage extends React.Component<SigninPageProps> {
 
         <Title isSignin={this.props.store.isSignin}/>
         <Logo/>
-        <TextOnlyTab title='회원가입'/>
+        <TextOnlyTab title='로그인'/>
         <BlankList>
           <SNSLogin/>
         </BlankList>

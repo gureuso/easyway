@@ -39,7 +39,7 @@ class Tab extends React.Component<TabProps> {
                 <div id="tab-title-bar"></div>
               </li>
               <li>
-                <Link href='/setting'><img src="/static/img/setting_btn_01.svg"/></Link>
+                <Link href='/settings'><img src="/static/img/setting_btn_01.svg"/></Link>
                 <img src="/static/img/refresh_btn_01.svg" onClick={this.refresh.bind(this)}/>
               </li>
             </ul>

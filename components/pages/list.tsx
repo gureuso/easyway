@@ -12,12 +12,17 @@ interface ListProps {
   refresh: boolean
 }
 
-class List extends React.Component<ListProps> {
+interface ListStates {
+  currentTime: string,
+  currentWeather: JSX.Element
+}
+
+class List extends React.Component<ListProps, ListStates> {
   _ismounted: boolean = true;
 
   state = {
     currentTime: '',
-    currentWeather: ''
+    currentWeather: (<div></div>)
   };
 
   setCurrentTime() {

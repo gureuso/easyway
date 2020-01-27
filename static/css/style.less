@@ -248,7 +248,7 @@ a {
 #current_time {
   text-align: center;
   font-size: 3rem;
-  padding-top: 110px;
+  padding-top: 100px;
 }
 
 #current_weather {
@@ -324,6 +324,74 @@ a {
 .sns-btn {
   width: 222px;
   height: 49px;
+}
+
+#search-bus-station {
+  border: none;
+  border-bottom: solid 1px;
+  margin: 20px 0 0 20px;
+  width: 90%;
+  height: 30px;
+  font-size: 1.2rem;
+}
+
+#search-bus-station-result {
+  position: absolute;
+  background-color: #f2f2f2;
+  list-style: none;
+  padding: 0;
+  font-size: 1.2rem;
+  margin-left: 20px;
+  width: 300px;
+  & > li {
+    cursor: pointer;
+  }
+}
+
+#bus-route-result {
+  display: block;
+  height: 140px;
+  overflow-y: auto;
+  padding: 0 5px 0 20px;
+  font-size: 1.2rem;
+  & > div {
+    & > div {
+      display: inline-block;
+      padding: 5px 0;
+    }
+    & > div:first-child {
+      width: 80%;
+    }
+    & > div:last-child {
+      width: 20%;
+      text-align: right;
+      & > img {
+        width: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+#bus-route-choice {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 20px;
+  & > li {
+    padding: 5px;
+    margin-left: 10px;
+    background-color: @colors[light-gray];
+    display: inline-block;
+    font-size: 1.2rem;
+    & > img {
+      width: 12px;
+      transform: rotate(45deg);
+      cursor: pointer;
+    }
+  }
+  & > li:first-child {
+    margin: 0;
+  }
 }
 
 @media (min-width: @sizes[tablet]) {
