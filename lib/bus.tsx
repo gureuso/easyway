@@ -11,9 +11,9 @@ class BusUI {
     ui.setWaitingTime(target, sec, BusUI.setCurrentBus);
   }
 
-  static setCurrentBus(target: JQuery<HTMLElement>) {
+  static setCurrentBus(target: JQuery<HTMLElement>, stId: number, busRouteId: number, ord: number) {
     const api = new BusAPI();
-    const res = api.getDataByRoute();
+    const res = api.getDataByRoute(stId, busRouteId, ord);
     res.then(data => {
       if(data) {
         const bus = new Bus(data);
@@ -46,6 +46,46 @@ class BusAPI {
     });
   }
 
+  createBus(name: string, stationId: string, busRouteId: string, ord: string, token: string) {
+    const form = new FormData();
+    form.append('name', name);
+    form.append('station_id', stationId);
+    form.append('bus_route_id', busRouteId);
+    form.append('ord', ord);
+    form.append('token', token);
+
+    return axios.post(`${this.PROXY_HOST}/public_transport/buses/create`, form)
+    .then(response => {
+      return response.data.data;
+    })
+    .catch(error => {
+      console.log(error);
+      return {};
+    });
+  }
+
+  deleteBus(id: number, token: string) {
+    return axios.delete(`${this.PROXY_HOST}/public_transport/buses/${id}/delete?token=${token}`)
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.log(error);
+      return {};
+    });
+  }
+
+  getBuses(token: string) {
+    return axios.get(`${this.PROXY_HOST}/public_transport/buses?token=${token}`)
+    .then(response => {
+      return response.data.data.buses;
+    })
+    .catch(error => {
+      console.log(error);
+      return [];
+    });
+  }
+
   getBusRoute(arsId: string) {
     let url = 'http://ws.bus.go.kr/api/rest/stationinfo/getStationByUid?'
     url += 'serviceKey=' + this.API_KEY;
@@ -62,7 +102,7 @@ class BusAPI {
     return this.proxy(url);
   }
 
-  getDataByRoute(stId=116000149, busRouteId=100100453, ord=35) {
+  getDataByRoute(stId: number, busRouteId: number, ord: number) {
     let url = 'http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?';
     url += 'serviceKey=' + this.API_KEY;
     url += '&stId=' + stId;

@@ -3,18 +3,20 @@ import moment from 'moment';
 import $ from 'jquery';
 
 import Modal from 'components/modal';
-import { BusUI } from 'lib/bus';
+import { BusUI, BusAPI } from 'lib/bus';
 import { WeatherAPI } from 'lib/weather';
 import { SubwayUI } from 'lib/subway';
 import { Interval } from 'lib/common';
 
 interface ListProps {
-  refresh: boolean
+  refresh: boolean,
+  token: string
 }
 
 interface ListStates {
   currentTime: string,
-  currentWeather: JSX.Element
+  currentWeather: JSX.Element,
+  buses: JSX.Element[]
 }
 
 class List extends React.Component<ListProps, ListStates> {
@@ -22,7 +24,8 @@ class List extends React.Component<ListProps, ListStates> {
 
   state = {
     currentTime: '',
-    currentWeather: (<div></div>)
+    currentWeather: (<div></div>),
+    buses: []
   };
 
   setCurrentTime() {
@@ -56,8 +59,26 @@ class List extends React.Component<ListProps, ListStates> {
   }
 
   setCurrentBus() {
-    const target = $('#current_bus_message');
-    BusUI.setCurrentBus(target);
+    const api = new BusAPI();
+    api.getBuses(this.props.token).then(data => {
+      let arr: JSX.Element[] = [];
+      for(let bus of data) {
+        const key = `${bus.station_id}${bus.bus_route_id}`;
+        arr.push(
+          <div className="current_bus" key={key}>
+            <p className="current_bus_title">{bus.name}</p>
+            <p className="current_bus_message" id={key}></p>
+          </div>
+        )
+      }
+      this.setState({'buses': arr});
+      
+      for(let bus of data) {
+        const key = `${bus.station_id}${bus.bus_route_id}`;
+        const target = $(`#${key}`);
+        BusUI.setCurrentBus(target, bus.station_id, bus.bus_route_id, bus.ord);
+      }
+    });
   }
 
   setCurrentSubway() {
@@ -98,6 +119,7 @@ class List extends React.Component<ListProps, ListStates> {
             <div>
               {this.state.currentWeather}
             </div>
+            {this.state.buses}
             {/* <div>
               <div className="current_bus">
                 <p className="current_bus_title">6613</p>

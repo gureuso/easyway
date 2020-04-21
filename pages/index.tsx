@@ -15,14 +15,14 @@ import { IStore } from 'store/store';
 
 interface IndexPageProps {
   store: IStore,
-  accessToken: string
+  token: string
 }
 
 @inject('store')
 @observer
 class IndexPage extends React.Component<IndexPageProps> {
   static getInitialProps(ctx: any) {
-    return {accessToken: ctx.query.token}
+    return {token: ctx.query.token}
   }
 
   state = {
@@ -52,7 +52,7 @@ class IndexPage extends React.Component<IndexPageProps> {
   }
 
   render() {
-    const token = this.props.accessToken;
+    const token = this.props.token || this.props.store.token;
     if(token) {
       {this.props.store.signin(token)}
     }
@@ -64,7 +64,7 @@ class IndexPage extends React.Component<IndexPageProps> {
         <Title isSignin={this.props.store.isSignin}/>
         <Logo/>
         <Tab handler={this.refresh.bind(this)}/>
-        <List refresh={this.state.refresh}/>
+        <List refresh={this.state.refresh} token={token}/>
         <Footer/>
 
         <Modal>

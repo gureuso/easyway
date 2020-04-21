@@ -31,9 +31,49 @@ class SubwayUI {
 
 class SubwayAPI {
   API_KEY: string = config.SUBWAY_API_KEY;
+  API_HOST: string = config.API_HOST;
+
+  createSubway(stationName: string, direction: string, trainLineName: string, token: string) {
+    const form = new FormData();
+    form.append('station_name', stationName);
+    form.append('direction', direction);
+    form.append('train_line_name', trainLineName);
+    form.append('token', token);
+
+    return axios.post(`${this.API_HOST}/public_transport/subways/create`, form)
+    .then(response => {
+      return response.data.data;
+    })
+    .catch(error => {
+      console.log(error);
+      return {};
+    });
+  }
+
+  deleteSubway(id: number, token: string) {
+    return axios.delete(`${this.API_HOST}/public_transport/subways/${id}/delete?token=${token}`)
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.log(error);
+      return {};
+    });
+  }
+
+  getSubways(token: string) {
+    return axios.get(`${this.API_HOST}/public_transport/subways?token=${token}`)
+    .then(response => {
+      return response.data.data.subways;
+    })
+    .catch(error => {
+      console.log(error);
+      return {};
+    });
+  }
 
   getCurrentSubway(station='대림') {
-    const url = 'http://swopenAPI.seoul.go.kr/api/subway/' + this.API_KEY + '/json/realtimeStationArrival/0/10/' + station;
+    const url = 'http://swopenAPI.seoul.go.kr/api/subway/' + this.API_KEY + '/json/realtimeStationArrival/0/100/' + station;
     return axios.get(url)
     .then(response => {
       return response.data.realtimeArrivalList ? response.data.realtimeArrivalList : [];
@@ -92,4 +132,4 @@ class Subway {
   }
 }
 
-export { SubwayUI };
+export { SubwayUI, SubwayAPI };

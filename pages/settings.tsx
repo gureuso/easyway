@@ -32,7 +32,7 @@ class SettingsPage extends React.Component<SettingPageProps> {
         <Logo/>
         <TextOnlyTab title='설정'/>
         <BlankList>
-          <Settings/>
+          <Settings token={this.props.store.token}/>
         </BlankList>
 
         <Footer/>
