@@ -292,15 +292,21 @@ a {
 }
 
 .current_subway {
-  .current_bus();
+  border-bottom: @colors[gray] 1px solid;
+  & > div {
+    display: inline-block;
+    padding: 5px 0;
+  }
+  & > div:first-child {
+    width: 50%;
+  }
+  & > div:last-child {
+    width: 50%;
+    text-align: right;
+  }
 }
-
-.current_subway_title {
-  font-size: 2.7rem;
-}
-
-.current_subway_message {
-  .current_bus_message();
+.current_subway:first-child {
+  margin-top: 25px;
 }
 
 #hourly_weather {

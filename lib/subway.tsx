@@ -5,26 +5,26 @@ import { TimeUI } from './ui';
 import config from 'config.json';
 
 class SubwayUI {
-  static setWaitingTime(target: JQuery<HTMLElement>, sec: number) {
+  static setWaitingTime(target: JQuery<HTMLElement>, sec: number, stationName: string, trainLineName: string) {
     const ui = new TimeUI();
-    ui.setWaitingTime(target, sec, SubwayUI.setCurrentSubway);
+    ui.setWaitingTimeWithSubway(target, sec, SubwayUI.setCurrentSubway, stationName, trainLineName);
   }
 
-  static setCurrentSubway(target: JQuery<HTMLElement>) {
+  static setCurrentSubway(target: JQuery<HTMLElement>, stationName: string, trainLineName: string) {
     const api = new SubwayAPI();
-    const res = api.getDaerimWithLine2();
-    res.then(data => {
-      if(data) {
-        const subway = new Subway(data);
-        const waitingSec = subway.getWaitingSec();
-        if(waitingSec < 1) {
-          target.text(subway.message);
-        } else {
-          SubwayUI.setWaitingTime(target, waitingSec);
+    api.getCurrentSubway(stationName).then(data => {
+      for(let d of data) {
+        if(d.trainLineNm == trainLineName) {
+          const subway = new Subway(d);
+          const waitingSec = subway.getWaitingSec();
+          if(waitingSec < 1) {
+            target.text(subway.message);
+          } else {
+            SubwayUI.setWaitingTime(target, waitingSec, stationName, trainLineName);
+          }
+          break;
         }
-      } else {
-        target.text('data is null');
-      }  
+      }
     });
   }
 }
@@ -68,12 +68,12 @@ class SubwayAPI {
     })
     .catch(error => {
       console.log(error);
-      return {};
+      return [];
     });
   }
 
-  getCurrentSubway(station='대림') {
-    const url = 'http://swopenAPI.seoul.go.kr/api/subway/' + this.API_KEY + '/json/realtimeStationArrival/0/100/' + station;
+  getCurrentSubway(stationName: string) {
+    const url = 'http://swopenAPI.seoul.go.kr/api/subway/' + this.API_KEY + '/json/realtimeStationArrival/0/100/' + stationName;
     return axios.get(url)
     .then(response => {
       return response.data.realtimeArrivalList ? response.data.realtimeArrivalList : [];
@@ -81,24 +81,6 @@ class SubwayAPI {
     .catch(error => {
       console.log(error);
       return [];
-    });
-  }
-
-  getDaerimWithLine2() {
-    return this.getCurrentSubway().then(list => {
-      let result = undefined;
-      for(const data of list) {
-        if(data.updnLine = '외선') {
-          if(!result) {
-            result = data;
-          } else {
-            if(data.updnLine < result.updnLine) {
-              result = data;
-            }
-          }
-        }
-      }
-      return result;
     });
   }
 }

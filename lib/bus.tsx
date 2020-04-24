@@ -6,22 +6,21 @@ import { Moment } from './common';
 import { TimeUI } from './ui';
 
 class BusUI {
-  static setWaitingTime(target: JQuery<HTMLElement>, sec: number) {
+  static setWaitingTime(target: JQuery<HTMLElement>, sec: number, stId: number, busRouteId: number, ord: number) {
     const ui = new TimeUI();
-    ui.setWaitingTime(target, sec, BusUI.setCurrentBus);
+    ui.setWaitingTimeWithBus(target, sec, BusUI.setCurrentBus, stId, busRouteId, ord);
   }
 
   static setCurrentBus(target: JQuery<HTMLElement>, stId: number, busRouteId: number, ord: number) {
     const api = new BusAPI();
-    const res = api.getDataByRoute(stId, busRouteId, ord);
-    res.then(data => {
+    api.getDataByRoute(stId, busRouteId, ord).then(data => {
       if(data) {
         const bus = new Bus(data);
         const waitingSec = bus.getWaitingSec();
         if(waitingSec < 1) {
           target.text(bus.message);
         } else {
-          BusUI.setWaitingTime(target, waitingSec);
+          BusUI.setWaitingTime(target, waitingSec, stId, busRouteId, ord);
         }
       } else {
         target.text('data is null');

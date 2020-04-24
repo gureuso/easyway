@@ -5,7 +5,7 @@ import $ from 'jquery';
 import Modal from 'components/modal';
 import { BusUI, BusAPI } from 'lib/bus';
 import { WeatherAPI } from 'lib/weather';
-import { SubwayUI } from 'lib/subway';
+import { SubwayUI, SubwayAPI } from 'lib/subway';
 import { Interval } from 'lib/common';
 
 interface ListProps {
@@ -16,7 +16,8 @@ interface ListProps {
 interface ListStates {
   currentTime: string,
   currentWeather: JSX.Element,
-  buses: JSX.Element[]
+  buses: JSX.Element[],
+  subways: JSX.Element
 }
 
 class List extends React.Component<ListProps, ListStates> {
@@ -25,7 +26,8 @@ class List extends React.Component<ListProps, ListStates> {
   state = {
     currentTime: '',
     currentWeather: (<div></div>),
-    buses: []
+    buses: [],
+    subways: (<span></span>)
   };
 
   setCurrentTime() {
@@ -82,8 +84,50 @@ class List extends React.Component<ListProps, ListStates> {
   }
 
   setCurrentSubway() {
-    const target = $('#current_subway_message');
-    SubwayUI.setCurrentSubway(target);
+    let subways: any = {};
+    const api = new SubwayAPI();
+    api.getSubways(this.props.token).then(data => {
+      for(let subway of data) {
+        subways[subway.station_name] = {}
+      }
+      for(let subway of data) {
+        if(subways[subway.station_name][subway.direction]) {
+          subways[subway.station_name][subway.direction].push(
+            subway.train_line_name
+          );
+        } else {
+          subways[subway.station_name][subway.direction] = [
+            subway.train_line_name
+          ];
+        }
+      }
+      
+      let arr: JSX.Element[] = []
+      for(let stationName in subways) {
+        for(let direction in subways[stationName]) {
+          for(let trainLineName of subways[stationName][direction]) {
+            arr.push(
+              <div key={trainLineName} className="current_subway">
+                <div className="current_subway_title">{trainLineName}</div>
+                <div className="current_subway_message" id={trainLineName.replace(/\s/gi, "")}></div>
+              </div>
+            )
+          }
+        }
+      }
+      if(arr.length > 0) {
+        this.setState({'subways': (<div>{arr}</div>)});
+      }
+
+      for(let stationName in subways) {
+        for(let direction in subways[stationName]) {
+          for(let trainLineName of subways[stationName][direction]) {
+            const target = $(`#${trainLineName.replace(/\s/gi, "")}`);
+            SubwayUI.setCurrentSubway(target, stationName, trainLineName);
+          }
+        }
+      }
+    });
   }
 
   setAll() {
@@ -116,22 +160,12 @@ class List extends React.Component<ListProps, ListStates> {
             <div>
               <p id="current_time">{this.state.currentTime}</p>
             </div>
-            <div>
-              {this.state.currentWeather}
-            </div>
+
+            <div>{this.state.currentWeather}</div>
+
             {this.state.buses}
-            {/* <div>
-              <div className="current_bus">
-                <p className="current_bus_title">6613</p>
-                <p className="current_bus_message"></p>
-              </div>
-            </div>
-            <div>
-              <div className="current_subway">
-                <p className="current_subway_title">대림역</p>
-                <p className="current_subway_message"></p>
-              </div>
-            </div> */}
+
+            {this.state.subways}
           </div>
         </div>
       </div>
