@@ -17,7 +17,7 @@ interface ListStates {
   currentTime: string,
   currentWeather: JSX.Element,
   buses: JSX.Element[],
-  subways: JSX.Element
+  subways: any,
 }
 
 class List extends React.Component<ListProps, ListStates> {
@@ -27,7 +27,7 @@ class List extends React.Component<ListProps, ListStates> {
     currentTime: '',
     currentWeather: (<div></div>),
     buses: [],
-    subways: (<span></span>)
+    subways: []
   };
 
   setCurrentTime() {
@@ -87,6 +87,8 @@ class List extends React.Component<ListProps, ListStates> {
     let subways: any = {};
     const api = new SubwayAPI();
     api.getSubways(this.props.token).then(data => {
+      let trainLineNameCnt = 0;
+
       for(let subway of data) {
         subways[subway.station_name] = {}
       }
@@ -100,23 +102,35 @@ class List extends React.Component<ListProps, ListStates> {
             subway.train_line_name
           ];
         }
+        trainLineNameCnt += 1;
       }
       
       let arr: JSX.Element[] = []
       for(let stationName in subways) {
         for(let direction in subways[stationName]) {
           for(let trainLineName of subways[stationName][direction]) {
-            arr.push(
-              <div key={trainLineName} className="current_subway">
-                <div className="current_subway_title">{trainLineName}</div>
-                <div className="current_subway_message" id={trainLineName.replace(/\s/gi, "")}></div>
-              </div>
-            )
+            if(trainLineNameCnt > 2) {
+              arr.push(
+                <div key={trainLineName} className="current_subway">
+                  <div className="current_subway_title">{trainLineName}</div>
+                  <div className="current_subway_message" id={trainLineName.replace(/\s/gi, "")}></div>
+                </div>
+              );
+            } else {
+              arr.push(
+                <div key={trainLineName} className="current_subway_solo">
+                  <div className="current_subway_solo_title">{trainLineName}</div>
+                  <div className="current_subway_solo_message" id={trainLineName.replace(/\s/gi, "")}></div>
+                </div>
+              );
+            }
           }
         }
       }
-      if(arr.length > 0) {
+      if(arr.length > 2) {
         this.setState({'subways': (<div>{arr}</div>)});
+      } else {
+        this.setState({'subways': arr});
       }
 
       for(let stationName in subways) {
