@@ -28,7 +28,7 @@
     "axios": "^0.19.0",
     "express": "^4.17.1",
     "fast-xml-parser": "^3.12.16",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "less": "^3.9.0",
     "mobx": "^5.15.1",
     "mobx-react": "^6.1.4",
