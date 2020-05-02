@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GoogleLoginBtn from 'static/img/sns/google.png';
+import GithubLoginBtn from 'static/img/sns/github.png';
 import KakaoLoginBtn from 'static/img/sns/kakao.png';
 import { Random } from 'lib/common';
 import config from 'config.json';
@@ -37,6 +37,10 @@ class SNSLogin extends React.Component {
         url = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=w8zTKKdu7csfDVKGsMXv&' +
           'state=' + Random.all(10) + '&' +
           'redirect_uri=' + this.get_redirect_uri('naver');
+        break;
+      case 'github':
+        url = 'https://github.com/login/oauth/authorize?scope=user:email&client_id=c5e12a1bc4fbf2357f92'
+        break;
     }
     return url;
   }
@@ -46,15 +50,15 @@ class SNSLogin extends React.Component {
       <div className="list">
         <div>
           <div className="sns">
-            <a href={this.login('google')}>
-              <img src={GoogleLoginBtn} className="sns-btn"/>
+            <a href={this.login('kakao')}>
+              <img src={KakaoLoginBtn} className="sns-btn"/>
             </a>
           </div>
         </div>
         <div>
           <div className="sns">
-            <a href={this.login('kakao')}>
-              <img src={KakaoLoginBtn} className="sns-btn"/>
+            <a href={this.login('github')}>
+              <img src={GithubLoginBtn} className="sns-btn"/>
             </a>
           </div>
         </div>
