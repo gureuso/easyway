@@ -35,7 +35,7 @@ class IndexPage extends React.Component<IndexPageProps> {
       const windowHeight = $(document).scrollTop();
       if(windowHeight! > height) {
         $('.tab').removeClass('tab').addClass('mini-tab');
-        $('#list').css({'margin-top': '290px'});
+        $('#list').css({'margin-top': '50px'});
       } else {
         $('.mini-tab').removeClass('mini-tab').addClass('tab');
         $('#list').css({'margin-top': '-50px'});
