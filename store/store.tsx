@@ -1,4 +1,4 @@
-import { applySnapshot, Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
+import { Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
 
 let store: IStore = null as any;
 
@@ -27,8 +27,8 @@ export const initializeStore = (snapshot = null) => {
   if((store as any) === null) {
     store = Store.create({ isSignin: false, token: '' });
   }
-  if(snapshot) {
-    applySnapshot(store, snapshot);
-  }
+  // if(snapshot) {
+  //   applySnapshot(store, snapshot);
+  // }
   return store;
 }

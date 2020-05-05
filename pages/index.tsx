@@ -53,6 +53,7 @@ class IndexPage extends React.Component<IndexPageProps> {
 
   render() {
     const token = this.props.token || this.props.store.token;
+
     if(token) {
       {this.props.store.signin(token)}
     }
