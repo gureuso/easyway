@@ -27,8 +27,8 @@ export const initializeStore = (snapshot = null) => {
   if((store as any) === null) {
     store = Store.create({ isSignin: false, token: '' });
   }
-  // if(snapshot) {
-  //   applySnapshot(store, snapshot);
-  // }
+  if(snapshot) {
+    store = Store.create({ isSignin: false, token: '' });
+  }
   return store;
 }
