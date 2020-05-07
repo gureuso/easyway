@@ -11,10 +11,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-          <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
+          <script data-ad-client="ca-pub-6199525334928216" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         </Head>
         <body>
           <Main/>
