@@ -180,6 +180,13 @@ class List extends React.Component<ListProps, ListStates> {
             {this.state.buses}
 
             {this.state.subways}
+
+            <div><ins className="adsbygoogle"
+     style={{display: 'block'}}
+     data-ad-client="ca-pub-6199525334928216"
+     data-ad-slot="1592697080"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins></div>
           </div>
         </div>
       </div>
