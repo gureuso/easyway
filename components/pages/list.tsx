@@ -154,7 +154,7 @@ class List extends React.Component<ListProps, ListStates> {
   componentDidMount() {
     this._ismounted = true;
     this.setAll();
-    ((window as any).adsbygoogle || []).push({});
+    ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
   }
   
   componentWillUnmount() {
@@ -184,7 +184,7 @@ class List extends React.Component<ListProps, ListStates> {
 
             <div style={{textAlign: 'center'}}>
               <ins className="adsbygoogle"
-                style={{display: 'inline-block', width: 250, height: 250}}
+                style={{display: 'inline-block', width: 250, height: 200}}
                 data-ad-client="ca-pub-6199525334928216"
                 data-ad-slot="1592697080"></ins>
             </div>
