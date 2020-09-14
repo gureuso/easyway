@@ -1,1 +1,0 @@
-{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\n\nclass Logo extends React.Component {\n  render() {\n    return __jsx(\"div\", {\n      className: \"content\",\n      id: \"logo\"\n    }, __jsx(\"img\", {\n      src: \"/static/img/easyway_title.png\"\n    }));\n  }\n\n}\n\nexport default Logo;","map":null,"metadata":{},"sourceType":"module"}
