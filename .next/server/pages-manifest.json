@@ -1,1 +1,10 @@
-{"/_app":"static/yjq0XEOotkHlrRtulUIX3/pages/_app.js","/_document":"static/yjq0XEOotkHlrRtulUIX3/pages/_document.js","/_error":"static/yjq0XEOotkHlrRtulUIX3/pages/_error.js","/cc":"static/yjq0XEOotkHlrRtulUIX3/pages/cc.js","/index":"static/yjq0XEOotkHlrRtulUIX3/pages/index.js","/settings":"static/yjq0XEOotkHlrRtulUIX3/pages/settings.js","/signin":"static/yjq0XEOotkHlrRtulUIX3/pages/signin.js","/signout":"static/yjq0XEOotkHlrRtulUIX3/pages/signout.js","/":"static/yjq0XEOotkHlrRtulUIX3/pages/index.js"}
+{
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/cc": "pages/cc.js",
+  "/": "pages/index.js",
+  "/settings": "pages/settings.js",
+  "/signin": "pages/signin.js",
+  "/signout": "pages/signout.js",
+  "/_error": "pages/_error.js"
+}
