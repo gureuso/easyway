@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GithubLoginBtn from 'static/img/sns/github.png';
+// import GithubLoginBtn from 'static/img/sns/github.png';
 import KakaoLoginBtn from 'static/img/sns/kakao.png';
 import { Random } from 'lib/common';
 import config from 'config.json';
@@ -56,11 +56,11 @@ class SNSLogin extends React.Component {
           </div>
         </div>
         <div>
-          <div className="sns">
-            <a href={this.login('github')}>
-              <img src={GithubLoginBtn} className="sns-btn"/>
-            </a>
-          </div>
+          {/*<div className="sns">*/}
+          {/*  <a href={this.login('github')}>*/}
+          {/*    <img src={GithubLoginBtn} className="sns-btn"/>*/}
+          {/*  </a>*/}
+          {/*</div>*/}
         </div>
       </div>
     );

@@ -23,7 +23,8 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "incremental": true
   },
   "exclude": [
     "node_modules"

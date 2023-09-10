@@ -5,7 +5,7 @@ import React from 'react';
 import { initializeStore, IStore } from 'store/store';
 
 import 'normalize.css';
-import 'static/css/style.less';
+import 'static/css/style.css';
 
 interface IOwnProps {
   initialState: IStore

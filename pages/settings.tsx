@@ -8,9 +8,10 @@ import TextOnlyTab from 'components/pages/textOnlyTab';
 import BlankList from 'components/pages/blankList';
 import Settings from 'components/pages/settings';
 import Footer from 'components/pages/footer';
-import Redirect from 'components/layout/redirect';
+import SNSLogin from 'components/pages/snsLogin';
 
 import { IStore } from 'store/store';
+
 
 interface SettingPageProps {
   store: IStore
@@ -21,7 +22,20 @@ interface SettingPageProps {
 class SettingsPage extends React.Component<SettingPageProps> {
   render() {
     if(!this.props.store.isSignin) {
-      return <Redirect store={this.props.store} to='/signin'/>
+      return (<>
+        <div>
+          <Header title='EASYWAY'/>
+
+          <Title isSignin={this.props.store.isSignin}/>
+          <Logo/>
+          <TextOnlyTab title='로그인해주세요.'/>
+          <BlankList>
+            <SNSLogin/>
+          </BlankList>
+          <Footer/>
+        </div>
+
+      </>)
     }
 
     return (

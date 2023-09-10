@@ -1,0 +1,490 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+html {
+  font-family: "Nanum Gothic";
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #5e5e5e;
+}
+
+.spin {
+  animation: spinner 0.5s linear 1;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.bg-c-#5e5e5e {
+  background-color: #f2f2f2;
+}
+
+.bg-c-yellow {
+  background-color: #f8ba00;
+}
+
+.content {
+  margin: auto;
+  width: 100%;
+}
+
+.inner-content {
+  margin: auto;
+  width: 90%;
+}
+
+.tab {
+  height: 200px;
+}
+
+.text-only-tab {
+  height: 120px;
+}
+
+.mini-tab {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  border-radius: 20px;
+  height: 75px;
+}
+
+.mini-tab > div > #date {
+  display: none;
+  padding: 0;
+}
+
+.mini-tab > .inner-content {
+  width: 100%;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.modal {
+  display: none;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  overflow: auto;
+  -ms-overflow-style: none;
+}
+.modal::-webkit-scrollbar {
+  display: none !important;
+}
+
+.modal-dialog {
+  width: 768px;
+  display: none;
+  background-color: white;
+  border-radius: 20px;
+  margin: 50px auto;
+}
+
+.modal-close {
+  float: right;
+}
+
+.modal-close > img {
+  cursor: pointer;
+  width: 15px;
+  padding: 10px 10px 0 0;
+}
+
+.modal-content {
+  padding: 20px;
+  padding-bottom: 40px;
+  clear: both;
+}
+
+#signin > li {
+  list-style: none;
+  padding: 0;
+}
+#signin > li:last-child {
+  padding: 10px;
+  float: right;
+}
+
+#title {
+  height: 240px;
+  text-align: center;
+}
+
+#title > p {
+  font-weight: 300;
+  padding: 60px 210px 0 0;
+  font-size: 1.3rem;
+}
+
+#title > h1 {
+  text-align: center;
+  font-size: 5.5rem;
+  margin: 0;
+}
+
+#title > h1 > a {
+  color: black;
+}
+
+#logo {
+  margin-bottom: -6px;
+}
+
+#logo > img {
+  width: 100%;
+}
+
+#date {
+  padding-top: 30px;
+}
+
+#date > p {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#tab > ul {
+  list-style: none;
+  padding: 0;
+  padding-top: 20px;
+}
+
+#tab-title-bar {
+  border-bottom: solid 4px;
+  width: 30px;
+  padding-top: 5px;
+  color: #5e5e5e;
+}
+
+#tab-title {
+  font-size: 1.5rem;
+}
+
+#tab > ul > li {
+  display: inline-block;
+}
+
+#tab > ul > li > img {
+  width: 30px;
+  cursor: pointer;
+}
+
+#tab > ul > li > img:first-child {
+  padding-right: 10px;
+}
+
+#tab > ul > li > img:first-child {
+  padding-right: 10px;
+}
+
+#tab > ul > li:first-child {
+  padding-left: 20px;
+}
+
+#tab > ul > li:last-child {
+  float: right;
+  padding-top: 5px;
+  padding-right: 20px;
+}
+
+#list {
+  margin-top: -50px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+#list > div > div {
+  height: 250px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+#list > div > div:nth-child(2n-1) {
+  border-right: 1px solid #f2f2f2;
+}
+
+#footer {
+  margin-top: 20px;
+  padding: 20px 0;
+}
+
+#footer > p {
+  text-align: right;
+  padding: 0 5%;
+}
+
+#current_time {
+  text-align: center;
+  font-size: 3rem;
+  padding-top: 100px;
+}
+
+#current_weather {
+  padding-top: 50px;
+  text-align: center;
+}
+
+#current_weather_title > div:first-child {
+  text-align: right;
+}
+
+#current_weather_title > div:last-child {
+  margin-top: 25px;
+  text-align: left;
+}
+
+#current_weather_title > div:last-child > p {
+  font-size: 3rem;
+}
+
+#current_weather_more {
+  text-align: right;
+  padding: 35px 5px 0 0;
+}
+
+#current_weather_more > img {
+  cursor: pointer;
+  width: 20px;
+}
+
+.current_bus {
+  text-align: center;
+}
+
+.current_bus_title {
+  margin-top: 80px;
+  font-size: 3rem;
+}
+
+.current_bus_message {
+  font-size: 1.5rem;
+}
+
+.current_subway_solo {
+  text-align: center;
+}
+
+.current_subway_solo_title {
+  margin-top: 90px;
+  font-size: 1.5rem;
+}
+
+.current_subway_solo_message {
+  margin-top: 10px;
+  font-size: 1.3rem;
+}
+
+.current_subway {
+  border-bottom: #5e5e5e 1px solid;
+  padding: 0 5px;
+}
+
+.current_subway > div {
+  display: inline-block;
+  padding: 5px 0;
+}
+
+.current_subway > div:first-child {
+  width: 50%;
+}
+
+.current_subway > div:last-child {
+  width: 50%;
+  text-align: right;
+}
+.current_subway:first-child {
+  margin-top: 25px;
+}
+
+#hourly_weather {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-around;
+}
+
+#hourly_weather > div {
+  width: 130px;
+  text-align: center;
+  padding: 20px 0;
+  border: 1px solid #f2f2f2;
+}
+
+.sns {
+  padding-top: 100px;
+  text-align: center;
+}
+
+.sns-btn {
+  width: 222px;
+  height: 49px;
+}
+
+#search-bus-station, #search-subway-station {
+  border: none;
+  border-bottom: solid 1px;
+  margin: 20px 0 0 20px;
+  width: 90%;
+  height: 30px;
+  font-size: 1.2rem;
+}
+
+#search-bus-station-result {
+  position: absolute;
+  background-color: #f2f2f2;
+  list-style: none;
+  padding: 0;
+  font-size: 1.2rem;
+  margin-left: 20px;
+  width: 300px;
+}
+
+#search-bus-station-result > li {
+  cursor: pointer;
+}
+
+#bus-route-result, #subway-line-result {
+  display: block;
+  height: 140px;
+  overflow-y: auto;
+  padding: 0 5px 0 20px;
+  font-size: 1.2rem;
+}
+
+#subway-line-result > div > div, #bus-route-result > div > div {
+  display: inline-block;
+  padding: 5px 0;
+}
+
+#subway-line-result > div > div:first-child, #bus-route-result > div > div:first-child {
+  width: 80%;
+}
+
+#subway-line-result > div > div:last-child, #bus-route-result > div > div:last-child {
+  width: 20%;
+  text-align: right;
+}
+
+#subway-line-result > div > div:last-child, #bus-route-result > div > div:last-child > img {
+  width: 20px;
+  cursor: pointer;
+}
+
+#bus-route-choice, #subway-line-choice {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 20px;
+}
+
+#bus-route-choice > li, #subway-line-choice > li {
+  padding: 5px;
+  margin-left: 10px;
+  background-color: #f2f2f2;
+  display: inline-block;
+  font-size: 1.2rem;
+}
+
+#bus-route-choice > li > img, #subway-line-choice > li > img {
+  width: 12px;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+#bus-route-choice > li:first-child, #subway-line-choice > li:first-child {
+  margin: 0;
+}
+
+#subway-line-result {
+  height: 100px;
+}
+
+#subway-line-choice > li:nth-child(4) {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  .content {
+    width: 768px;
+  }
+
+  .mini-tab {
+    width: 691.1px;
+  }
+}
+
+@media (max-width: 767px) {
+  .tab {
+    width: 100%;
+  }
+
+  .mini-tab {
+    width: 90%;
+  }
+
+  .modal-dialog {
+    width: 90%;
+    left: 0;
+    margin-left: 5%;
+  }
+
+  #title {
+    height: 200px;
+  }
+
+  #title > p {
+    padding-top: 55px;
+    padding-right: 165px;
+    font-size: 1.1rem;
+  }
+
+  #title > h1 {
+    font-size: 4.5rem;
+  }
+
+  #list > div {
+    grid-template-columns: 100%;
+  }
+
+  #list > div:nth-child(2n-1) {
+    border-right: none;
+  }
+}
+
+@media (max-width: 360px) {
+  #title {
+    height: 180px;
+  }
+
+  #title > p {
+    padding-right: 105px;
+    font-size: 1rem;
+  }
+  #title > h1 {
+    font-size: 3.5rem;
+  }
+
+  #hourly_weather > div {
+    width: 100px;
+  }
+}
