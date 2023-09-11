@@ -1,8 +1,10 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/_error": "pages/_error.js",
-  "/settings": "pages/settings.js",
+  "/cc": "pages/cc.js",
   "/": "pages/index.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js"
+  "/settings": "pages/settings.js",
+  "/signin": "pages/signin.js",
+  "/signout": "pages/signout.js",
+  "/_error": "pages/_error.js"
 }

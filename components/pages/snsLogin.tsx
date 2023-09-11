@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image'
 
 // import GithubLoginBtn from 'static/img/sns/github.png';
 import KakaoLoginBtn from 'static/img/sns/kakao.png';
@@ -51,7 +52,7 @@ class SNSLogin extends React.Component {
         <div>
           <div className="sns">
             <a href={this.login('kakao')}>
-              <img src={KakaoLoginBtn} className="sns-btn"/>
+              <Image width={222} height={47} src={KakaoLoginBtn} className="sns-btn"/>
             </a>
           </div>
         </div>
