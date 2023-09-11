@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import Image from 'next/image'
 
 import { BusAPI } from 'lib/bus';
 import { SubwayAPI } from 'lib/subway';
@@ -51,7 +52,7 @@ class Settings extends React.Component<SettingsProps, SettingsStates> {
       for(let bus of data) {
         const key = `${bus.station_id}${bus.bus_route_id}`;
         arr.push(
-          <li key={key} data-id={bus.id} data-st-id={bus.station_id} data-busroute-id={bus.bus_route_id} data-ord={bus.ord} data-rtnm={bus.name}>{bus.name}<img src="/static/img/plus_btn_01.svg" onClick={this.removeBusRoute}/></li>
+          <li key={key} data-id={bus.id} data-st-id={bus.station_id} data-busroute-id={bus.bus_route_id} data-ord={bus.ord} data-rtnm={bus.name}>{bus.name}<Image width={15} height={15} src="/static/img/plus_btn_01.svg" onClick={this.removeBusRoute}/></li>
         )
       }
       this.setState({'busRouteChoice': arr});
@@ -86,7 +87,7 @@ class Settings extends React.Component<SettingsProps, SettingsStates> {
     if(alreadyFlag) {
       return;
     }
-    
+
     if(arr.length > 2) {
       return;
     }
@@ -119,7 +120,7 @@ class Settings extends React.Component<SettingsProps, SettingsStates> {
         arr.push(
           <div key={i}>
             <div data-st-id={data[i].stId} data-busroute-id={data[i].busRouteId} data-ord={data[i].staOrd} data-rtnm={data[i].rtNm} data-adirection={data[i].adirection}>{data[i].rtNm}:{data[i].adirection}</div>
-            <div><img src="/static/img/plus_btn_01.svg" onClick={this.addBusRoute}/></div>
+            <div><img width={15} height={15} src="/static/img/close_btn_01.svg" onClick={this.addBusRoute}/></div>
           </div>
         )
       }
@@ -138,7 +139,7 @@ class Settings extends React.Component<SettingsProps, SettingsStates> {
       data = data ? data.slice(0, 5) : undefined;
 
       const arr = [];
-      for(let i in data) {  
+      for(let i in data) {
         arr.push(
           <li key={i} data-ars-id={data[i].arsId} onClick={this.setBusRoute}>{data[i].stNm}</li>
         );
@@ -175,11 +176,11 @@ class Settings extends React.Component<SettingsProps, SettingsStates> {
     if(alreadyFlag) {
       return;
     }
-    
+
     if(arr.length > 5) {
       return;
     }
-    
+
     const stationName = target.data('statn-nm');
     const direction = target.data('updn-line');
     const trainLineName = target.data('train-line-nm');
@@ -187,7 +188,7 @@ class Settings extends React.Component<SettingsProps, SettingsStates> {
     const api = new SubwayAPI();
     api.createSubway(stationName, direction, trainLineName, this.props.token).then(data => {
       arr.push(
-        <li key={key} data-id={data.id} data-updn-line={direction} data-statn-nm={stationName} data-train-line-nm={trainLineName}>{trainLineName.split(' - ')[0]}<img src="/static/img/plus_btn_01.svg" onClick={this.removeSubwayLine}/></li>
+        <li key={key} data-id={data.id} data-updn-line={direction} data-statn-nm={stationName} data-train-line-nm={trainLineName}>{trainLineName.split(' - ')[0]}<Image width={15} height={15} src="/static/img/plus_btn_01.svg" onClick={this.removeSubwayLine}/></li>
       )
       this.setState({'subwayLineChoice': arr});
     });
@@ -201,7 +202,7 @@ class Settings extends React.Component<SettingsProps, SettingsStates> {
       for(let subway of data) {
         const key = subway.train_line_name;
         arr.push(
-          <li key={key} data-id={subway.id} data-updn-line={subway.direction} data-statn-nm={subway.station_name} data-train-line-nm={subway.train_line_name}>{subway.train_line_name.split(' - ')[0]}<img src="/static/img/plus_btn_01.svg" onClick={this.removeSubwayLine}/></li>
+          <li key={key} data-id={subway.id} data-updn-line={subway.direction} data-statn-nm={subway.station_name} data-train-line-nm={subway.train_line_name}>{subway.train_line_name.split(' - ')[0]}<Image width={15} height={15} src="/static/img/close_btn_01.svg" onClick={this.removeSubwayLine}/></li>
         )
       }
       this.setState({'subwayLineChoice': arr});

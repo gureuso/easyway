@@ -372,22 +372,23 @@ a {
   font-size: 1.2rem;
 }
 
-#subway-line-result > div > div, #bus-route-result > div > div {
-  display: inline-block;
+#subway-line-result > div, #bus-route-result > div {
+  display: flex;
+  flex-direction: row;
   padding: 5px 0;
 }
 
 #subway-line-result > div > div:first-child, #bus-route-result > div > div:first-child {
-  width: 80%;
+  width: 200px;
 }
 
 #subway-line-result > div > div:last-child, #bus-route-result > div > div:last-child {
-  width: 20%;
+  width: 50px;
   text-align: right;
 }
 
-#subway-line-result > div > div:last-child, #bus-route-result > div > div:last-child > img {
-  width: 20px;
+#subway-line-result > div > div:last-child > img, #bus-route-result > div > div:last-child > img {
+  width: 20px !important;
   cursor: pointer;
 }
 
